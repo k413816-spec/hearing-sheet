@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>初回面談ヒアリングシート｜キャンディハウス × いちやの不動産仲介</title>
+
+<!-- ================================================================
+     ★ URL設定 ― ここのURLを変更するだけで全ボタンに反映されます
+================================================================ -->
+<script>
+const DOC_URLS = {
+  perf:     'https://drive.google.com/file/d/XXXXX_perf/view',      // 性能比較表（仕様比較PDF）
+  simple:   'https://drive.google.com/file/d/XXXXX_simple/view',    // SIMPLE 標準仕様書
+  standard: 'https://drive.google.com/file/d/XXXXX_standard/view',  // STANDARD 標準仕様書
+  olive:    'https://drive.google.com/file/d/XXXXX_olive/view',     // OLIVE 標準仕様書
+  label:    'https://drive.google.com/file/d/XXXXX_label/view',     // ○○LABEL 標準仕様書
+  sim:      '',   // 資金計画シミュレーター（後日追加）
+  price:    '',   // 他社との価格・性能比較（既存）
+  family:   '',   // ご家族へのご説明資料
+  voice:    '',   // お客様の声・施工事例
+};
+</script>
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  background: #F2F0EB;
+  color: #1A1A1A;
+  min-height: 100vh;
+  font-size: 16px;
+}
+textarea, input, select { font-family: inherit; font-size: inherit; }
+
+/* ===== CSS VARIABLES ===== */
+:root {
+  --orange:    #F07422;
+  --orange-dk: #C95E10;
+  --orange-lt: #FFE4C8;
+  --orange-cr: #FFF8F2;
+  --navy:      #1A3A5C;
+  --navy-mid:  #2E6DA4;
+  --navy-lt:   #EBF3FC;
+  --navy-dk:   #0D2440;
+  --green:     #1A7A45;
+  --green-lt:  #E6F4ED;
+  --red:       #C0392B;
+  --amber:     #D4890A;
+  --amber-lt:  #FFF3DC;
+  --purple:    #6B4FA0;
+  --purple-lt: #F0EBFA;
+  --gray:      #6B7280;
+  --gray-lt:   #F5F5F5;
+  --border:    #E0D8D0;
+  --shadow:    0 2px 12px rgba(0,0,0,.09);
+}
+
+/* ===== SITE HEADER ===== */
+.site-header {
+  background: linear-gradient(135deg, var(--navy-dk) 0%, var(--navy) 100%);
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  box-shadow: 0 2px 10px rgba(0,0,0,.3);
+}
+.hdr-brand { display: flex; align-items: center; gap: 10px; }
+.hdr-logo {
+  width: 34px; height: 34px;
+  background: var(--orange);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.hdr-title { color: #fff; font-size: 14px; font-weight: 700; line-height: 1.3; }
+.hdr-sub   { color: var(--orange-lt); font-size: 10px; letter-spacing: .04em; }
+.hdr-reset-btn {
+  background: rgba(255,255,255,.12);
+  color: rgba(255,255,255,.8);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+}
+.hdr-reset-btn:hover { background: rgba(255,255,255,.22); }
+
+/* ===== TAB BAR ===== */
+.tab-bar {
+  background: #fff;
+  display: flex;
+  position: sticky;
+  top: 54px;
+  z-index: 200;
+  border-bottom: 3px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,.07);
+}
+.tab-btn {
+  flex: 1; padding: 14px 10px;
+  border: none; background: transparent;
+  color: var(--gray); font-size: 14px; font-weight: 700;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  border-bottom: 3px solid transparent; margin-bottom: -3px;
+  transition: all .18s; line-height: 1.2;
+}
+.tab-btn .t-icon { font-size: 20px; }
+.tab-btn.active-customer { color: var(--orange); border-bottom-color: var(--orange); background: var(--orange-cr); }
+.tab-btn.active-staff    { color: var(--navy);   border-bottom-color: var(--navy);   background: var(--navy-lt); }
+
+/* ===== TAB PANELS ===== */
+#tab-customer, #tab-staff { display: none; }
+
+/* ===== WRAP ===== */
+.c-wrap, .s-wrap { max-width: 860px; margin: 0 auto; padding: 0 14px 100px; }
+
+/* ===== CUSTOMER HERO ===== */
+.c-hero {
+  background: linear-gradient(135deg, var(--orange) 0%, #D4601A 100%);
+  border-radius: 0 0 24px 24px;
+  padding: 28px 24px 24px;
+  text-align: center; color: #fff;
+  position: relative; overflow: hidden; margin-bottom: 24px;
+}
+.c-hero::before {
+  content: '🏠'; position: absolute; right: -10px; bottom: -16px;
+  font-size: 100px; opacity: .12; line-height: 1;
+}
+.c-hero .hero-brand { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: rgba(255,255,255,.8); margin-bottom: 10px; text-transform: uppercase; }
+.c-hero .hero-msg { font-size: 18px; font-weight: 400; line-height: 1.7; color: rgba(255,255,255,.95); }
+.c-hero .hero-msg strong { font-size: 22px; font-weight: 800; color: #fff; display: block; margin-top: 4px; }
+
+/* ===== SECTION (Customer) ===== */
+.c-section { margin-bottom: 28px; }
+.c-section-hdr {
+  background: linear-gradient(90deg, var(--orange) 0%, var(--orange-dk) 100%);
+  color: #fff; padding: 12px 18px;
+  border-radius: 12px 12px 0 0;
+  font-size: 15px; font-weight: 800;
+  display: flex; align-items: center; gap: 8px;
+}
+.c-section-body {
+  background: #fff;
+  border-radius: 0 0 12px 12px;
+  border: 1px solid var(--orange-lt); border-top: none;
+}
+
+/* ===== QUESTION ROW (Customer) ===== */
+.c-q { padding: 18px 18px 14px; border-bottom: 1px solid #F5EFE8; }
+.c-q:last-child { border-bottom: none; }
+.c-q-label {
+  font-size: 15px; font-weight: 700; color: var(--navy);
+  margin-bottom: 6px;
+  display: flex; align-items: flex-start; gap: 8px; line-height: 1.45;
+}
+.c-q-label .q-icon { font-size: 18px; flex-shrink: 0; }
+.c-q-note { font-size: 12px; color: var(--gray); margin-bottom: 8px; padding-left: 26px; line-height: 1.55; }
+.c-q textarea, .c-q input[type=text] {
+  width: 100%; border: 1.5px solid #DCCFC4; border-radius: 10px;
+  padding: 12px 14px; font-size: 15px; color: #222;
+  background: var(--orange-cr); resize: vertical; min-height: 72px;
+  transition: border .15s, box-shadow .15s; outline: none; line-height: 1.6;
+}
+.c-q textarea:focus, .c-q input[type=text]:focus {
+  border-color: var(--orange); box-shadow: 0 0 0 3px rgba(240,116,34,.14); background: #fff;
+}
+.c-q input[type=text] { min-height: unset; }
+
+/* ===== RADIO & CHECKBOX (Customer) ===== */
+.c-radio-group, .c-check-group { display: flex; flex-wrap: wrap; gap: 10px; padding-left: 26px; }
+.c-radio-label, .c-check-label {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--orange-cr); border: 1.5px solid #DCCFC4;
+  border-radius: 10px; padding: 10px 16px;
+  cursor: pointer; font-size: 14px; font-weight: 600; color: #333;
+  transition: all .15s; user-select: none;
+}
+.c-radio-label input, .c-check-label input { width: 20px; height: 20px; accent-color: var(--orange); flex-shrink: 0; cursor: pointer; }
+.c-radio-label:has(input:checked), .c-check-label:has(input:checked) {
+  background: var(--orange-lt); border-color: var(--orange); color: var(--orange-dk);
+}
+.c-select {
+  width: calc(100% - 26px); margin-left: 26px;
+  border: 1.5px solid #DCCFC4; border-radius: 10px;
+  padding: 12px 36px 12px 14px; font-size: 15px;
+  background: var(--orange-cr) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' fill='none'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23888' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+  color: #222; outline: none; appearance: none; transition: border .15s;
+}
+.c-select:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(240,116,34,.14); }
+
+/* ===== STAFF SECTION ===== */
+.s-section { background: #fff; border-radius: 14px; box-shadow: var(--shadow); margin-bottom: 20px; overflow: hidden; }
+.s-hdr {
+  padding: 13px 18px; font-size: 14px; font-weight: 800;
+  display: flex; align-items: center; gap: 8px; color: #fff;
+}
+.s-hdr.navy   { background: linear-gradient(90deg, var(--navy-dk) 0%, var(--navy-mid) 100%); }
+.s-hdr.orange { background: linear-gradient(90deg, var(--orange-dk) 0%, var(--orange) 100%); }
+.s-hdr.green  { background: linear-gradient(90deg, var(--green) 0%, #2ea55e 100%); }
+.s-hdr.amber  { background: linear-gradient(90deg, #B8730A 0%, var(--amber) 100%); }
+.s-hdr.red    { background: linear-gradient(90deg, #922C20 0%, var(--red) 100%); }
+.s-hdr.purple { background: linear-gradient(90deg, #4A3472 0%, var(--purple) 100%); }
+.s-hdr.teal   { background: linear-gradient(90deg, #1A6B6B 0%, #2A9A9A 100%); }
+.s-body { padding: 16px 18px; }
+
+/* ===== STAFF FORM ===== */
+.s-row { display: grid; grid-template-columns: 130px 1fr; gap: 10px 14px; align-items: start; margin-bottom: 12px; }
+.s-row:last-child { margin-bottom: 0; }
+.s-label { font-size: 13px; font-weight: 700; color: var(--navy); padding-top: 10px; line-height: 1.3; }
+.s-label.req::after { content: '必須'; background: var(--red); color: #fff; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 4px; margin-left: 5px; vertical-align: middle; }
+.s-input, .s-select, .s-textarea {
+  border: 1.5px solid #D0D5DD; border-radius: 9px; padding: 9px 13px;
+  font-size: 14px; color: #222; background: #FAFAFA; width: 100%;
+  outline: none; transition: border .15s, box-shadow .15s; line-height: 1.55;
+}
+.s-input:focus, .s-select:focus, .s-textarea:focus {
+  border-color: var(--navy-mid); box-shadow: 0 0 0 3px rgba(46,109,164,.12); background: #fff;
+}
+.s-textarea { resize: vertical; min-height: 68px; }
+.s-select {
+  appearance: none;
+  background: #FAFAFA url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' fill='none'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23888' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+  padding-right: 34px; cursor: pointer;
+}
+.divider { border: none; border-top: 1px dashed #E0D8D0; margin: 14px 0; }
+
+/* ===== 鉄板トーク BUTTON ===== */
+.talk-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--orange-dk) 0%, var(--orange) 100%);
+  color: #fff; border: none; border-radius: 12px; padding: 16px 20px;
+  font-size: 16px; font-weight: 800; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  box-shadow: 0 4px 14px rgba(240,116,34,.35);
+  transition: all .18s; margin-bottom: 14px;
+}
+.talk-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(240,116,34,.45); }
+.talk-btn .btn-icon { font-size: 22px; }
+
+/* ===== DOC LINKS ===== */
+.doc-links-hdr { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+.doc-section-label {
+  font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--gray); margin: 10px 0 6px; padding-left: 2px;
+}
+.doc-btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px; }
+.doc-btn {
+  border: 1.5px solid transparent;
+  border-radius: 10px; padding: 11px 13px;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center; gap: 8px;
+  transition: all .15s; text-align: left; line-height: 1.3;
+}
+.doc-btn .d-icon { font-size: 17px; flex-shrink: 0; }
+
+/* 汎用（ネイビー） */
+.doc-btn.navy {
+  background: var(--navy-lt); border-color: #BFD4EC; color: var(--navy);
+}
+.doc-btn.navy:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+/* SIMPLE（グレー） */
+.doc-btn.simple {
+  background: #F3F4F6; border-color: #D1D5DB; color: #374151;
+}
+.doc-btn.simple:hover { background: #4B5563; color: #fff; border-color: #4B5563; }
+
+/* STANDARD（ブルー） */
+.doc-btn.standard {
+  background: var(--navy-lt); border-color: #93C5FD; color: var(--navy);
+}
+.doc-btn.standard:hover { background: var(--navy-mid); color: #fff; border-color: var(--navy-mid); }
+
+/* OLIVE（グリーン） */
+.doc-btn.olive {
+  background: var(--green-lt); border-color: #86EFAC; color: #155C34;
+}
+.doc-btn.olive:hover { background: var(--green); color: #fff; border-color: var(--green); }
+
+/* ○○LABEL（ゴールド） */
+.doc-btn.label {
+  background: var(--amber-lt); border-color: #FCD34D; color: #7A4D00;
+}
+.doc-btn.label:hover { background: #D4A017; color: #fff; border-color: #D4A017; }
+
+/* 未設定（グレーアウト） */
+.doc-btn.coming {
+  background: #F5F5F5; border-color: #E0E0E0; color: #AAA; cursor: default;
+}
+.doc-btn.coming:hover { background: #F5F5F5; color: #AAA; border-color: #E0E0E0; }
+.doc-url-toggle { font-size: 12px; color: var(--navy-mid); cursor: pointer; text-decoration: underline; }
+.doc-url-panel {
+  display: none; background: var(--navy-lt); border-radius: 10px;
+  padding: 14px; font-size: 12px; margin-top: 10px;
+}
+.doc-url-panel.open { display: block; }
+.doc-url-row { display: grid; grid-template-columns: 1fr 2fr; gap: 8px 12px; align-items: center; margin-bottom: 8px; }
+.doc-url-row label { font-weight: 700; color: var(--navy); font-size: 12px; }
+.doc-url-row input { border: 1px solid #BFD4EC; border-radius: 7px; padding: 6px 10px; font-size: 12px; width: 100%; background: #fff; outline: none; }
+
+/* ===== PROPOSAL PATTERN ===== */
+.proposal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.prop-card {
+  border: 2px solid var(--border); border-radius: 12px; padding: 14px;
+  cursor: pointer; transition: all .18s; user-select: none;
+}
+.prop-card:has(input:checked) {
+  border-color: var(--orange); background: var(--orange-cr);
+  box-shadow: 0 0 0 3px rgba(240,116,34,.15);
+}
+.prop-card input { position: absolute; opacity: 0; pointer-events: none; }
+.prop-card .prop-num { font-size: 11px; font-weight: 800; letter-spacing: .06em; color: var(--gray); margin-bottom: 4px; }
+.prop-card .prop-icon { font-size: 26px; margin-bottom: 6px; }
+.prop-card .prop-cond { font-size: 11px; color: var(--gray); margin-bottom: 4px; }
+.prop-card .prop-result { font-size: 13px; font-weight: 800; color: var(--navy); line-height: 1.35; }
+.prop-card:has(input:checked) .prop-result { color: var(--orange-dk); }
+.prop-card:has(input:checked) .prop-num    { color: var(--orange); }
+
+/* ===== CHECKLIST ===== */
+.check-progress { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.check-dot { width: 14px; height: 14px; border-radius: 50%; background: #DDD; transition: background .2s; flex-shrink: 0; }
+.check-dot.done { background: var(--green); }
+.check-count { font-size: 13px; font-weight: 700; color: var(--gray); }
+.all-done-badge { background: var(--green); color: #fff; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 20px; display: none; }
+.all-done-badge.visible { display: inline-block; }
+.check-items { display: flex; flex-direction: column; gap: 8px; }
+.check-item {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--gray-lt); border: 1.5px solid #E5E5E5;
+  border-radius: 10px; padding: 12px 14px;
+  cursor: pointer; transition: all .15s; user-select: none;
+  font-size: 14px; font-weight: 600; color: #444;
+}
+.check-item:has(input:checked) { background: var(--green-lt); border-color: var(--green); color: var(--green); }
+.check-item input { width: 20px; height: 20px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+
+/* ===== CLOSING REACTION ===== */
+.reaction-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.react-label {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--gray-lt); border: 1.5px solid #E5E5E5;
+  border-radius: 10px; padding: 12px 14px;
+  cursor: pointer; font-size: 14px; font-weight: 600; color: #444;
+  transition: all .15s; user-select: none;
+}
+.react-label input { width: 18px; height: 18px; accent-color: var(--orange); cursor: pointer; }
+.react-label:has(input:checked) { background: var(--orange-lt); border-color: var(--orange); color: var(--orange-dk); }
+
+/* ===== ACTION ITEMS ===== */
+.action-items { display: flex; flex-direction: column; gap: 10px; }
+.action-item { background: var(--gray-lt); border-radius: 10px; padding: 12px 14px; border: 1.5px solid #E5E5E5; transition: all .15s; }
+.action-item:has(.action-chk:checked) { background: var(--orange-cr); border-color: var(--orange-lt); }
+.action-top { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
+.action-top .action-chk { width: 20px; height: 20px; accent-color: var(--orange); cursor: pointer; flex-shrink: 0; }
+.action-label { font-size: 14px; font-weight: 700; color: #333; }
+.action-date { margin-top: 10px; padding-left: 32px; display: none; }
+.action-item:has(.action-chk:checked) .action-date { display: block; }
+
+/* ===== AI SECTION ===== */
+.ai-paste { width: 100%; border: 2px dashed #C8D8EC; border-radius: 12px; padding: 14px; font-size: 13px; color: #555; background: var(--navy-lt); resize: vertical; min-height: 120px; outline: none; transition: border .15s; line-height: 1.6; }
+.ai-paste:focus { border-color: var(--navy-mid); background: #fff; }
+.ai-key-wrap { display: flex; gap: 10px; align-items: center; margin: 10px 0; }
+.ai-key-wrap label { font-size: 12px; font-weight: 700; color: var(--navy); white-space: nowrap; }
+.ai-key-input { flex: 1; border: 1.5px solid #D0D5DD; border-radius: 8px; padding: 8px 12px; font-size: 13px; background: #fff; outline: none; }
+.ai-run-btn {
+  width: 100%; background: linear-gradient(135deg, var(--navy-dk) 0%, var(--navy-mid) 100%);
+  color: #fff; border: none; border-radius: 11px; padding: 14px 20px;
+  font-size: 15px; font-weight: 800; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  box-shadow: 0 4px 14px rgba(26,58,92,.3); transition: all .18s; margin-top: 12px;
+}
+.ai-run-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,58,92,.38); }
+.ai-run-btn:disabled { opacity: .55; pointer-events: none; }
+.ai-status { margin-top: 10px; font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 8px; display: none; }
+.ai-status.loading { background: var(--amber-lt); color: #8B6010; display: block; }
+.ai-status.ok      { background: var(--green-lt); color: var(--green); display: block; }
+.ai-status.err     { background: #FDECEA; color: var(--red); display: block; }
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.55); z-index: 500;
+  padding: 20px; overflow-y: auto;
+  align-items: flex-start; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: #fff; border-radius: 20px; width: 100%; max-width: 700px;
+  margin: auto; padding: 30px 26px 26px; position: relative;
+  box-shadow: 0 16px 48px rgba(0,0,0,.28); animation: mIn .22s ease;
+}
+@keyframes mIn { from { opacity:0; transform:scale(.95) translateY(14px); } to { opacity:1; transform:scale(1) translateY(0); } }
+.modal-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 2px solid #ddd; background: #fff;
+  font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gray); transition: all .15s;
+}
+.modal-close:hover { background: #f0f0f0; }
+.modal-tag { font-size: 11px; font-weight: 800; letter-spacing: .1em; color: var(--orange); text-transform: uppercase; margin-bottom: 8px; }
+.modal-title { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 20px; line-height: 1.35; }
+.talk-script {
+  background: var(--orange-cr); border: 1px solid var(--orange-lt);
+  border-radius: 14px; padding: 22px; font-size: 15px; line-height: 2.0;
+  color: #2A2A2A; white-space: pre-wrap; font-family: inherit;
+}
+.talk-script em { font-style: normal; font-weight: 800; color: var(--orange-dk); }
+.talk-copy-btn {
+  margin-top: 14px; background: var(--orange); color: #fff; border: none;
+  border-radius: 10px; padding: 10px 22px; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: background .15s;
+}
+.talk-copy-btn:hover { background: var(--orange-dk); }
+
+/* ===== MINI TALK BUTTONS ===== */
+.mini-talk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.mini-talk-btn {
+  background: var(--navy-lt); border: 1.5px solid #BFD4EC;
+  color: var(--navy); border-radius: 12px; padding: 13px 10px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  transition: all .15s; line-height: 1.4; text-align: center; width: 100%;
+}
+.mini-talk-btn .mt-icon { font-size: 20px; }
+.mini-talk-btn:hover { background: var(--navy); color: #fff; border-color: var(--navy); transform: translateY(-2px); }
+.mini-talk-btn.row-style { flex-direction: row; justify-content: center; gap: 10px; }
+
+/* ===== LAND TALK BUTTON ===== */
+.land-talk-btn {
+  background: linear-gradient(135deg, #C95E10 0%, #FF8C00 100%) !important;
+  border: 2px solid #FF6A00 !important;
+  box-shadow: 0 4px 20px rgba(240,116,34,.55) !important;
+  animation: landPulse 2.5s ease-in-out infinite;
+}
+.land-talk-btn:hover { box-shadow: 0 6px 28px rgba(240,116,34,.75) !important; }
+@keyframes landPulse {
+  0%,100% { box-shadow: 0 4px 20px rgba(240,116,34,.55); }
+  50%      { box-shadow: 0 4px 28px rgba(240,116,34,.85), 0 0 0 7px rgba(240,116,34,.13); }
+}
+
+/* ===== TALK USED CHECK ===== */
+.talk-used-wrap {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--green-lt); border: 1.5px solid var(--green);
+  border-radius: 10px; padding: 12px 16px; margin-top: 16px;
+  font-size: 14px; font-weight: 700; color: var(--green); cursor: pointer; user-select: none;
+}
+.talk-used-wrap input { width: 20px; height: 20px; accent-color: var(--green); cursor: pointer; }
+
+/* ===== SECTION CHECK LABEL ===== */
+.s-check-label {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--green-lt); border: 1.5px solid var(--green);
+  border-radius: 10px; padding: 12px 14px; cursor: pointer;
+  font-size: 14px; font-weight: 700; color: var(--green);
+  margin-bottom: 14px; user-select: none; transition: all .15s;
+}
+.s-check-label input { width: 20px; height: 20px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+.s-check-label:has(input:checked) { background: var(--green); color: #fff; }
+
+/* ===== TALK CARD GRID ===== */
+.tcard-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+}
+@media (max-width: 740px) { .tcard-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .tcard-grid { grid-template-columns: 1fr; } }
+.tcard {
+  background: #fff; border-radius: 14px; overflow: hidden;
+  border: 1.5px solid var(--border);
+  box-shadow: 0 2px 10px rgba(0,0,0,.07);
+  display: flex; flex-direction: column;
+  transition: transform .18s, box-shadow .18s;
+}
+.tcard:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.13); }
+.tcard-accent { height: 4px; background: linear-gradient(90deg, var(--orange-dk), var(--orange)); }
+.tcard-accent.c1 { background: linear-gradient(90deg,#C95E10,var(--orange)); }
+.tcard-accent.c2 { background: linear-gradient(90deg,#B8730A,var(--amber)); }
+.tcard-accent.c3 { background: linear-gradient(90deg,#1A7A45,#2ea55e); }
+.tcard-accent.c4 { background: linear-gradient(90deg,var(--navy-dk),var(--navy-mid)); }
+.tcard-accent.c5 { background: linear-gradient(90deg,#4A3472,var(--purple)); }
+.tcard-accent.c6 { background: linear-gradient(90deg,#922C20,var(--red)); }
+.tcard-accent.c7 { background: linear-gradient(90deg,#155C34,#2A9A60); }
+.tcard-accent.c8 { background: linear-gradient(90deg,#1A6B6B,#2A9A9A); }
+.tcard-body { padding: 14px 14px 10px; flex: 1; }
+.tcard-cat  { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--gray); margin-bottom: 4px; }
+.tcard-emoji { font-size: 28px; margin-bottom: 6px; line-height: 1; }
+.tcard-title { font-size: 13px; font-weight: 800; color: var(--navy); line-height: 1.4; margin-bottom: 6px; }
+.tcard-desc  { font-size: 11px; color: var(--gray); line-height: 1.6; }
+.tcard-btn {
+  margin: 10px 14px 14px; padding: 10px 14px;
+  background: linear-gradient(135deg,var(--orange-dk),var(--orange));
+  color: #fff; border: none; border-radius: 9px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: opacity .15s; display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.tcard-btn:hover { opacity: .88; }
+
+/* ===== GRADE BUTTON ===== */
+.grade-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #4A3472 0%, var(--purple) 100%);
+  color: #fff; border: none; border-radius: 12px; padding: 16px 20px;
+  font-size: 16px; font-weight: 800; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  box-shadow: 0 4px 14px rgba(107,79,160,.32);
+  transition: all .18s; margin-bottom: 14px;
+}
+.grade-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(107,79,160,.42); }
+.grade-btn .btn-icon { font-size: 22px; }
+
+/* 選択中グレード表示 */
+.grade-selected-row {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--purple-lt); border: 1.5px solid #C8B8E8;
+  border-radius: 10px; padding: 10px 14px; margin-bottom: 4px;
+}
+.grade-selected-row label { font-size: 12px; font-weight: 700; color: var(--purple); white-space: nowrap; }
+.grade-selected-val { font-size: 14px; font-weight: 800; color: var(--navy); flex: 1; }
+.grade-selected-clear { background: none; border: none; color: var(--gray); font-size: 18px; cursor: pointer; padding: 0 4px; line-height: 1; }
+
+/* ===== GRADE MODAL ===== */
+.grade-modal-box {
+  background: #F7F6F3; border-radius: 20px;
+  width: 100%; max-width: 1100px;
+  margin: auto; padding: 28px 22px 22px; position: relative;
+  box-shadow: 0 16px 48px rgba(0,0,0,.28); animation: mIn .22s ease;
+  max-height: 92vh; overflow-y: auto;
+}
+.grade-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+@media (max-width: 900px) { .grade-cards-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .grade-cards-grid { grid-template-columns: 1fr; } }
+
+/* Grade Card */
+.gc {
+  background: #fff; border-radius: 16px; overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,.09);
+  display: flex; flex-direction: column;
+  transition: transform .18s, box-shadow .18s;
+}
+.gc:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.14); }
+.gc-head { padding: 16px 16px 12px; color: #fff; }
+.gc-grade { font-size: 11px; font-weight: 800; letter-spacing: .1em; opacity: .85; margin-bottom: 4px; }
+.gc-name  { font-size: 18px; font-weight: 900; line-height: 1.15; margin-bottom: 6px; }
+.gc-tagline { font-size: 11px; opacity: .9; line-height: 1.5; font-style: italic; }
+
+/* SIMPLE: gray */
+.gc.simple .gc-head  { background: linear-gradient(135deg, #4B5563 0%, #6B7280 100%); }
+.gc.simple .gc-pick  { background: #6B7280; }
+/* STANDARD: blue */
+.gc.standard .gc-head { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); }
+.gc.standard .gc-pick { background: var(--navy-mid); }
+/* OLIVE: green */
+.gc.olive .gc-head  { background: linear-gradient(135deg, #155C34 0%, #2A9A60 100%); }
+.gc.olive .gc-pick  { background: #1A7A45; }
+/* LABEL: gold */
+.gc.label .gc-head  { background: linear-gradient(135deg, #92620A 0%, #D4A017 100%); }
+.gc.label .gc-pick  { background: #D4A017; }
+
+.gc-body { padding: 14px 16px 0; flex: 1; }
+.gc-specs { list-style: none; font-size: 12px; line-height: 1.7; color: #333; }
+.gc-specs li { padding: 3px 0; border-bottom: 1px solid #F0EEE8; display: flex; gap: 6px; }
+.gc-specs li:last-child { border-bottom: none; }
+.gc-specs li::before { content: '›'; color: inherit; opacity: .5; flex-shrink: 0; }
+.gc-specs .spec-em { font-weight: 700; color: var(--navy); }
+.gc-target {
+  margin: 12px 0 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 12px; font-weight: 700; line-height: 1.55;
+}
+.gc.simple   .gc-target { background: #F3F4F6; color: #374151; border-left: 4px solid #6B7280; }
+.gc.standard .gc-target { background: var(--navy-lt); color: var(--navy); border-left: 4px solid var(--navy-mid); }
+.gc.olive    .gc-target { background: var(--green-lt); color: #155C34; border-left: 4px solid #1A7A45; }
+.gc.label    .gc-target { background: var(--amber-lt); color: #7A4D00; border-left: 4px solid #D4A017; }
+
+.gc-pick {
+  width: 100%; border: none; padding: 13px; color: #fff;
+  font-size: 13px; font-weight: 800; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: opacity .15s; margin-top: auto;
+}
+.gc-pick:hover { opacity: .88; }
+
+/* ===== PHASE BADGE ===== */
+.phase-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--orange); color: #fff; font-size: 11px; font-weight: 800;
+  letter-spacing: .06em; padding: 4px 14px; border-radius: 20px; margin-bottom: 14px;
+}
+
+/* ===== BOTTOM BAR ===== */
+.bottom-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(255,255,255,.97); backdrop-filter: blur(8px);
+  border-top: 2px solid var(--border); padding: 10px 16px;
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  z-index: 150; box-shadow: 0 -2px 12px rgba(0,0,0,.1);
+}
+.bb-switch-btn {
+  background: var(--navy); color: #fff; border: none;
+  border-radius: 10px; padding: 10px 18px; font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: opacity .15s;
+}
+.bb-switch-btn.for-staff { background: var(--orange); }
+.bb-switch-btn:hover { opacity: .88; }
+.bb-print-btn {
+  background: var(--gray-lt); color: var(--navy);
+  border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 10px 18px; font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: all .15s;
+}
+.bb-print-btn:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+/* ===== PRINT ===== */
+@media print {
+  .site-header, .tab-bar, .bottom-bar { display: none !important; }
+  #tab-customer, #tab-staff { display: block !important; }
+  .s-section, .c-section { page-break-inside: avoid; }
+  body { background: #fff; }
+  .c-wrap, .s-wrap { padding-bottom: 20px; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .proposal-grid, .doc-btn-grid { grid-template-columns: 1fr; }
+  .s-row { grid-template-columns: 1fr; }
+  .s-label { padding-top: 0; }
+  .c-hero .hero-msg { font-size: 16px; }
+  .c-hero .hero-msg strong { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="hdr-brand">
+    <div class="hdr-logo">🍬</div>
+    <div>
+      <div class="hdr-title">キャンディハウス × いちやの不動産仲介</div>
+      <div class="hdr-sub">初回面談ヒアリングシート</div>
+    </div>
+  </div>
+  <button class="hdr-reset-btn" onclick="confirmReset()">🔄 リセット</button>
+</header>
+
+<!-- ===== TAB BAR ===== -->
+<div class="tab-bar">
+  <button id="btn-customer" class="tab-btn active-customer" onclick="switchTab('customer')">
+    <span class="t-icon">🏡</span><span>お客様版</span>
+  </button>
+  <button id="btn-staff" class="tab-btn" onclick="switchTab('staff')">
+    <span class="t-icon">📋</span><span>担当者版</span>
+  </button>
+</div>
+
+
+<!-- ================================================================
+     TAB: お客様版
+================================================================ -->
+<div id="tab-customer">
+  <div class="c-wrap">
+
+    <!-- HERO -->
+    <div class="c-hero">
+      <div class="hero-brand">CANDY HOUSE × いちやの不動産仲介</div>
+      <div class="hero-msg">
+        このシートはあなたの夢を叶えるためではなく、<br>
+        <strong>あなたの不安をゼロにするために作りました。</strong>
+      </div>
+    </div>
+
+    <!-- PHASE 1 -->
+    <div style="margin-bottom:8px;">
+      <span class="phase-badge">✦ PHASE 1　あなたのことを教えてください</span>
+    </div>
+
+    <div class="c-section">
+      <div class="c-section-hdr">💬 気持ち・きっかけ</div>
+      <div class="c-section-body">
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">🌟</span>今日、一番聞いてみたいことはなんですか？なんでもOKです！</div>
+          <textarea id="c-expect" placeholder="例：どんな家が建てられるか知りたい、資金計画を相談したい…" rows="3"></textarea>
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">🔥</span>家を建てようと思ったのって、何かきっかけありましたか？</div>
+          <textarea id="c-trigger" placeholder="例：子どもが生まれた、家賃がもったいないと思い始めた…" rows="3"></textarea>
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">😟</span>家づくりで、なんか気になってることや心配なことありますか？</div>
+          <textarea id="c-anxiety" placeholder="例：お金のこと、どの会社を選べばいいかわからない…" rows="3"></textarea>
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">🚧</span>なかなか動けてない理由って、なんかありますか？</div>
+          <textarea id="c-barrier" placeholder="例：夫婦の意見が合わない、土地が見つからない…" rows="3"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="c-section">
+      <div class="c-section-hdr">✨ 理想の未来</div>
+      <div class="c-section-body">
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">🌅</span>新しい家でやってみたいこと、なんかありますか？</div>
+          <textarea id="c-morning" placeholder="例：毎朝ここに住んでいる実感があってうれしい、子どもの笑顔が見たい…" rows="3"></textarea>
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">❤️</span>家族の中で一番楽しみにしてる人は誰ですか？</div>
+          <input type="text" id="c-happy-who" placeholder="例：妻、子ども、両親…">
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">🗣️</span>その人に「よかった！」って思ってもらえるのって、どんな時やと思いますか？</div>
+          <textarea id="c-happy-words" placeholder="例：「ここに住めて本当によかった」「毎日帰ってきたい家だね」…" rows="3"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="c-section">
+      <div class="c-section-hdr">🙏 正直に教えてください</div>
+      <div class="c-section-body">
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">😓</span>他の住宅会社に行ったことありますか？なんか気になったこととかありましたか？</div>
+          <div class="c-q-note">同じ思いはさせたくないので正直に教えてもらえると嬉しいです。</div>
+          <textarea id="c-bad-exp" placeholder="例：しつこく営業された、費用が不透明だった、話を聞いてもらえなかった…" rows="3"></textarea>
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">🤝</span>どんな担当者やったら、安心して相談できそうですか？</div>
+          <textarea id="c-ideal-staff" placeholder="例：押しつけがましくなく相談しやすい人、詳しく説明してくれる人…" rows="3"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div style="margin-bottom:8px; margin-top:20px;">
+      <span class="phase-badge">✦ PHASE 2　理想の家を教えてください</span>
+    </div>
+
+    <div class="c-section">
+      <div class="c-section-hdr">📍 土地・エリア・間取り</div>
+      <div class="c-section-body">
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">🗺️</span>土地はお持ちですか？</div>
+          <div class="c-radio-group">
+            <label class="c-radio-label"><input type="radio" name="c-land" value="あり">持っている</label>
+            <label class="c-radio-label"><input type="radio" name="c-land" value="探し中">探している</label>
+            <label class="c-radio-label"><input type="radio" name="c-land" value="未定">まだわからない</label>
+          </div>
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">📌</span>希望エリア</div>
+          <input type="text" id="c-area" placeholder="例：泉南市内、岸和田市、阪南市周辺…">
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">🏫</span>お子様の学校区は気にされますか？</div>
+          <div class="c-radio-group">
+            <label class="c-radio-label"><input type="radio" name="c-school" value="変えたくない" onchange="toggleSchoolArea(this)">今の学校区を変えたくない</label>
+            <label class="c-radio-label"><input type="radio" name="c-school" value="多少OK" onchange="toggleSchoolArea(this)">多少は変わっても大丈夫</label>
+            <label class="c-radio-label"><input type="radio" name="c-school" value="関係ない" onchange="toggleSchoolArea(this)">子供はいない・関係ない</label>
+          </div>
+        </div>
+
+        <div class="c-q" id="c-school-area-wrap" style="display:none;">
+          <div class="c-q-label"><span class="q-icon">🏫</span>希望の学校区を教えてください</div>
+          <input type="text" id="c-school-area" placeholder="例：〇〇小学校区、△△中学校区…">
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">🏠</span>希望間取り</div>
+          <select id="c-madori" class="c-select">
+            <option value="">選択してください</option>
+            <option value="2LDK">2LDK</option>
+            <option value="3LDK">3LDK</option>
+            <option value="4LDK">4LDK</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">📅</span>いつ頃までに新しい家に住みたいですか？</div>
+          <div class="c-radio-group" style="flex-direction:column;">
+            <label class="c-radio-label"><input type="radio" name="c-move-in" value="できるだけ早く">⚡ できるだけ早く</label>
+            <label class="c-radio-label"><input type="radio" name="c-move-in" value="1年以内">📅 1年以内</label>
+            <label class="c-radio-label"><input type="radio" name="c-move-in" value="1〜2年以内">📅 1〜2年以内</label>
+            <label class="c-radio-label"><input type="radio" name="c-move-in" value="2〜3年以内">📅 2〜3年以内</label>
+            <label class="c-radio-label"><input type="radio" name="c-move-in" value="まだわからない">❓ まだわからない</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="c-section">
+      <div class="c-section-hdr">⭐ こだわりポイント</div>
+      <div class="c-section-body">
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">✅</span>特に大事にしたいことを選んでください</div>
+          <div class="c-q-note">特に大事な3つを選んでください。</div>
+          <div class="c-check-group">
+            <label class="c-check-label"><input type="checkbox" name="c-kodawari" value="気密・断熱性能">❄️ 気密・断熱性能</label>
+            <label class="c-check-label"><input type="checkbox" name="c-kodawari" value="耐震性能">🏗️ 耐震性能</label>
+            <label class="c-check-label"><input type="checkbox" name="c-kodawari" value="デザイン">🎨 デザイン</label>
+            <label class="c-check-label"><input type="checkbox" name="c-kodawari" value="収納">📦 収納</label>
+            <label class="c-check-label"><input type="checkbox" name="c-kodawari" value="広いリビング">🛋️ 広いリビング</label>
+            <label class="c-check-label"><input type="checkbox" name="c-kodawari" value="子供部屋">🧒 子供部屋</label>
+            <label class="c-check-label"><input type="checkbox" name="c-kodawari" value="在宅ワークスペース">💻 在宅ワークスペース</label>
+            <label class="c-check-label"><input type="checkbox" name="c-kodawari" value="庭">🌿 庭</label>
+            <label class="c-check-label"><input type="checkbox" name="c-kodawari" value="駐車場">🚗 駐車場</label>
+            <label class="c-check-label"><input type="checkbox" name="c-kodawari" value="その他">➕ その他</label>
+          </div>
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">😤</span>現在の住まいへの不満</div>
+          <textarea id="c-dissatisfaction" placeholder="例：収納が少ない、夏暑くて冬寒い、隣の音が気になる…" rows="3"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="c-section">
+      <div class="c-section-hdr">💴 予算について</div>
+      <div class="c-section-body">
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">💰</span>月々いくらまでなら無理なく払えそうですか？</div>
+          <div class="c-q-note">総額ではなく月々の金額で教えてください。</div>
+          <input type="text" id="c-monthly" placeholder="例：10万円、8万円くらいまで…">
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">🏦</span>頭金はどのくらい準備できそうですか？</div>
+          <input type="text" id="c-downpayment" placeholder="例：200万円、500万円くらい…">
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">🤔</span>住宅ローンについて不安なことはありますか？</div>
+          <div class="c-check-group" style="flex-direction:column;">
+            <label class="c-check-label"><input type="checkbox" name="c-loan-anxiety" value="ローンが通るか不安">😰 ローンが通るか不安</label>
+            <label class="c-check-label"><input type="checkbox" name="c-loan-anxiety" value="毎月の返済額が心配">💸 毎月の返済額が心配</label>
+            <label class="c-check-label"><input type="checkbox" name="c-loan-anxiety" value="頭金が少なくて不安">💰 頭金が少なくて不安</label>
+            <label class="c-check-label"><input type="checkbox" name="c-loan-anxiety" value="特にない">✅ 特にない</label>
+            <label class="c-check-label"><input type="checkbox" name="c-loan-anxiety" value="その他">✏️ その他</label>
+          </div>
+          <input type="text" id="c-loan-anxiety-other" placeholder="「その他」の場合、詳しく教えてください…" style="margin-top:8px;margin-left:26px;width:calc(100% - 26px);border:1.5px solid #DCCFC4;border-radius:10px;padding:12px 14px;font-size:15px;color:#222;background:var(--orange-cr);outline:none;">
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">🤔</span>予算より少し高かった場合はどうしますか？</div>
+          <div class="c-radio-group" style="flex-direction:column;">
+            <label class="c-radio-label"><input type="radio" name="c-budget-over" value="増やす">💪 予算を増やす方向で考える</label>
+            <label class="c-radio-label"><input type="radio" name="c-budget-over" value="妥協">🔍 予算内で妥協点を探す</label>
+            <label class="c-radio-label"><input type="radio" name="c-budget-over" value="中古">🏡 中古・リノベも視野に入れる</label>
+            <label class="c-radio-label"><input type="radio" name="c-budget-over" value="未定">❓ まだわからない</label>
+          </div>
+        </div>
+
+        <div class="c-q">
+          <div class="c-q-label"><span class="q-icon">📝</span>その他ご要望・メモ</div>
+          <textarea id="c-other-req" placeholder="何でも自由にどうぞ…" rows="3"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="text-align:center; padding:20px 0 10px; color:var(--gray); font-size:13px; line-height:1.8;">
+      ご記入ありがとうございます。<br>担当者がすぐにご確認します。
+    </div>
+
+  </div><!-- /.c-wrap -->
+
+  <div id="bottom-bar-customer" class="bottom-bar">
+    <button class="bb-print-btn" onclick="window.print()">🖨️ 印刷</button>
+    <button class="bb-switch-btn" onclick="switchTab('staff')">📋 担当者版へ</button>
+  </div>
+</div><!-- /#tab-customer -->
+
+
+<!-- ================================================================
+     TAB: 担当者版
+================================================================ -->
+<div id="tab-staff">
+  <div class="s-wrap">
+
+    <!-- ① 基本情報 -->
+    <div class="s-section">
+      <div class="s-hdr navy">📝 基本情報</div>
+      <div class="s-body">
+        <div class="s-row">
+          <div class="s-label req">面談日</div>
+          <input type="date" id="s-date" class="s-input">
+        </div>
+        <div class="s-row">
+          <div class="s-label req">担当者名</div>
+          <select id="s-staff" class="s-select">
+            <option value="">選択してください</option>
+            <option value="中辻啓太郎">中辻啓太郎</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+        <div class="s-row">
+          <div class="s-label req">来店経路</div>
+          <select id="s-route" class="s-select">
+            <option value="">選択してください</option>
+            <option value="ホームページ">ホームページ</option>
+            <option value="LP">LP</option>
+            <option value="看板">看板</option>
+            <option value="インスタ">インスタ</option>
+            <option value="YouTube">YouTube</option>
+            <option value="紹介">紹介</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+        <hr class="divider">
+        <div class="s-row">
+          <div class="s-label req">お客様名</div>
+          <input type="text" id="s-name" class="s-input" placeholder="例：山田 太郎 様">
+        </div>
+        <div class="s-row">
+          <div class="s-label">連絡先</div>
+          <input type="text" id="s-phone" class="s-input" placeholder="電話番号 / メールアドレス">
+        </div>
+        <div class="s-row">
+          <div class="s-label">年齢・職業</div>
+          <input type="text" id="s-age-job" class="s-input" placeholder="例：35歳・会社員">
+        </div>
+        <div class="s-row">
+          <div class="s-label">家族構成</div>
+          <input type="text" id="s-family" class="s-input" placeholder="例：夫婦＋子1人（3歳）">
+        </div>
+      </div>
+    </div>
+
+    <!-- ② キャンディハウス説明ツール -->
+    <div class="s-section">
+      <div class="s-hdr orange">🍬 キャンディハウス説明ツール</div>
+      <div class="s-body">
+
+        <button class="talk-btn" onclick="openTalkModal()">
+          <span class="btn-icon">💬</span>鉄板トークを表示
+        </button>
+
+        <div class="mini-talk-grid">
+          <button class="mini-talk-btn" onclick="openMiniTalk('low-temp')">
+            <span class="mt-icon">🌡️</span>温度感が低い<br>お客様への一言
+          </button>
+          <button class="mini-talk-btn" onclick="openMiniTalk('value')">
+            <span class="mt-icon">💎</span>価値の<br>再確認トーク
+          </button>
+          <button class="mini-talk-btn" onclick="openMiniTalk('loan-talk')">
+            <span class="mt-icon">🏦</span>ローン不安への<br>トーク
+          </button>
+          <button class="mini-talk-btn" onclick="openMiniTalk('absent-family')">
+            <span class="mt-icon">👨‍👩‍👧</span>同席していない<br>家族へのお土産
+          </button>
+        </div>
+
+        <button class="grade-btn" onclick="openGradeModal()">
+          <span class="btn-icon">🏅</span>グレード一覧を表示
+        </button>
+        <div id="grade-selected-row" class="grade-selected-row" style="display:none;">
+          <label>提案グレード</label>
+          <span id="grade-selected-val" class="grade-selected-val"></span>
+          <button class="grade-selected-clear" onclick="clearGrade()" title="クリア">✕</button>
+        </div>
+
+        <div class="doc-links-hdr">📂 仕様書・資料リンク</div>
+
+        <div class="doc-section-label">比較・シミュレーション</div>
+        <div class="doc-btn-grid" style="margin-bottom:10px;">
+          <button class="doc-btn navy" onclick="openDocUrl('perf')">
+            <span class="d-icon">📊</span>性能比較表（仕様比較PDF）
+          </button>
+          <button id="doc-btn-sim" class="doc-btn navy" onclick="openDocUrl('sim')">
+            <span class="d-icon">🧮</span>資金計画シミュレーター
+          </button>
+        </div>
+
+        <div class="doc-section-label">グレード別 標準仕様書</div>
+        <div class="doc-btn-grid" style="margin-bottom:12px;">
+          <button class="doc-btn simple" onclick="openDocUrl('simple')">
+            <span class="d-icon">📋</span>SIMPLE 標準仕様書
+          </button>
+          <button class="doc-btn standard" onclick="openDocUrl('standard')">
+            <span class="d-icon">📋</span>STANDARD 標準仕様書
+          </button>
+          <button class="doc-btn olive" onclick="openDocUrl('olive')">
+            <span class="d-icon">📋</span>OLIVE 標準仕様書
+          </button>
+          <button class="doc-btn label" onclick="openDocUrl('label')">
+            <span class="d-icon">📋</span>○○LABEL 標準仕様書
+          </button>
+        </div>
+
+        <span class="doc-url-toggle" onclick="toggleUrlPanel()">⚙️ URLを設定する</span>
+        <div id="doc-url-panel" class="doc-url-panel">
+          <div style="font-size:11px;font-weight:800;color:var(--navy);margin-bottom:8px;">URLを変更する場合はファイル冒頭の DOC_URLS 変数を直接編集するのがおすすめです。</div>
+          <div class="doc-url-row">
+            <label>性能比較表</label>
+            <input type="url" id="url-perf" placeholder="https://drive.google.com/..." oninput="saveDocUrls()">
+          </div>
+          <div class="doc-url-row">
+            <label>シミュレーター</label>
+            <input type="url" id="url-sim" placeholder="https://..." oninput="saveDocUrls()">
+          </div>
+          <div class="doc-url-row">
+            <label>SIMPLE 仕様書</label>
+            <input type="url" id="url-simple" placeholder="https://drive.google.com/..." oninput="saveDocUrls()">
+          </div>
+          <div class="doc-url-row">
+            <label>STANDARD 仕様書</label>
+            <input type="url" id="url-standard" placeholder="https://drive.google.com/..." oninput="saveDocUrls()">
+          </div>
+          <div class="doc-url-row">
+            <label>OLIVE 仕様書</label>
+            <input type="url" id="url-olive" placeholder="https://drive.google.com/..." oninput="saveDocUrls()">
+          </div>
+          <div class="doc-url-row">
+            <label>○○LABEL 仕様書</label>
+            <input type="url" id="url-label" placeholder="https://drive.google.com/..." oninput="saveDocUrls()">
+          </div>
+          <div class="doc-url-row">
+            <label>家族への説明資料</label>
+            <input type="url" id="url-family" placeholder="https://..." oninput="saveDocUrls()">
+          </div>
+          <div class="doc-url-row">
+            <label>お客様の声・施工事例</label>
+            <input type="url" id="url-voice" placeholder="https://..." oninput="saveDocUrls()">
+          </div>
+          <div style="font-size:11px;color:var(--gray);margin-top:6px;">※ URLはブラウザに自動保存されます（ここで入力したURLが最優先になります）</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ② 鉄板トーク集 -->
+    <div class="s-section">
+      <div class="s-hdr orange">🗣️ 鉄板トーク集</div>
+      <div class="s-body">
+        <div class="tcard-grid">
+
+          <div class="tcard">
+            <div class="tcard-accent c1"></div>
+            <div class="tcard-body">
+              <div class="tcard-cat">OPENING</div>
+              <div class="tcard-emoji">🏠</div>
+              <div class="tcard-title">「なぜキャンディハウスか」最初の一言</div>
+              <div class="tcard-desc">初回面談で必ず使う、会社の強みを伝える鉄板オープニング</div>
+            </div>
+            <button class="tcard-btn" onclick="openMiniTalk('tc1')">👁 タップして見る</button>
+          </div>
+
+          <div class="tcard">
+            <div class="tcard-accent c2"></div>
+            <div class="tcard-body">
+              <div class="tcard-cat">価格</div>
+              <div class="tcard-emoji">💰</div>
+              <div class="tcard-title">「なぜこの価格で建てられるのか」</div>
+              <div class="tcard-desc">自社施工・中間マージンゼロの仕組みをわかりやすく説明</div>
+            </div>
+            <button class="tcard-btn" onclick="openMiniTalk('tc2')">👁 タップして見る</button>
+          </div>
+
+          <div class="tcard">
+            <div class="tcard-accent c3"></div>
+            <div class="tcard-body">
+              <div class="tcard-cat">性能</div>
+              <div class="tcard-emoji">🌡️</div>
+              <div class="tcard-title">「高気密・高断熱って何が違うの？」</div>
+              <div class="tcard-desc">温度差・光熱費・健康まで。数字で語る性能の差</div>
+            </div>
+            <button class="tcard-btn" onclick="openMiniTalk('tc3')">👁 タップして見る</button>
+          </div>
+
+          <div class="tcard">
+            <div class="tcard-accent c4"></div>
+            <div class="tcard-body">
+              <div class="tcard-cat">アフター</div>
+              <div class="tcard-emoji">🔧</div>
+              <div class="tcard-title">「建てた後も安心」自社施工の保証体制</div>
+              <div class="tcard-desc">施工した職人が直接対応する安心感。下請けゼロの強み</div>
+            </div>
+            <button class="tcard-btn" onclick="openMiniTalk('tc4')">👁 タップして見る</button>
+          </div>
+
+          <div class="tcard">
+            <div class="tcard-accent c5"></div>
+            <div class="tcard-body">
+              <div class="tcard-cat">競合対応</div>
+              <div class="tcard-emoji">⚖️</div>
+              <div class="tcard-title">「他社と迷っている」へのアンサー</div>
+              <div class="tcard-desc">大手HMや地場工務店との違いを感情・数字・事実で答える</div>
+            </div>
+            <button class="tcard-btn" onclick="openMiniTalk('tc5')">👁 タップして見る</button>
+          </div>
+
+          <div class="tcard">
+            <div class="tcard-accent c6"></div>
+            <div class="tcard-body">
+              <div class="tcard-cat">クロージング</div>
+              <div class="tcard-emoji">🤝</div>
+              <div class="tcard-title">「今日どこまで決めるか」次のステップへ</div>
+              <div class="tcard-desc">決断を迫らず、自然に次のアポへつなぐ締め方</div>
+            </div>
+            <button class="tcard-btn" onclick="openMiniTalk('tc6')">👁 タップして見る</button>
+          </div>
+
+          <div class="tcard">
+            <div class="tcard-accent c7"></div>
+            <div class="tcard-body">
+              <div class="tcard-cat">資金計画</div>
+              <div class="tcard-emoji">💵</div>
+              <div class="tcard-title">「お金のこと、正直に話しましょう」</div>
+              <div class="tcard-desc">予算不安を解消する資金計画トーク。総額・月返済・控除まで</div>
+            </div>
+            <button class="tcard-btn" onclick="openMiniTalk('tc7')">👁 タップして見る</button>
+          </div>
+
+          <div class="tcard">
+            <div class="tcard-accent c8"></div>
+            <div class="tcard-body">
+              <div class="tcard-cat">土地</div>
+              <div class="tcard-emoji">📍</div>
+              <div class="tcard-title">「土地がない方へのセットプラン提案」</div>
+              <div class="tcard-desc">土地探しから建築まで一貫サポートの説明と安心づくり</div>
+            </div>
+            <button class="tcard-btn" onclick="openMiniTalk('tc8')">👁 タップして見る</button>
+          </div>
+
+        </div><!-- /.tcard-grid -->
+      </div>
+    </div>
+
+    <!-- ③ 提案パターン判定 -->
+    <div class="s-section">
+      <div class="s-hdr green">🗂️ 提案パターン判定</div>
+      <div class="s-body">
+        <div style="font-size:13px;color:var(--gray);margin-bottom:14px;">お客様の状況に合うパターンを選択してください</div>
+        <div class="proposal-grid">
+          <label class="prop-card">
+            <input type="radio" name="s-proposal" value="1">
+            <div class="prop-num">PATTERN ①</div>
+            <div class="prop-icon">🏗️</div>
+            <div class="prop-cond">土地あり</div>
+            <div class="prop-result">キャンディハウス<br>注文住宅</div>
+          </label>
+          <label class="prop-card">
+            <input type="radio" name="s-proposal" value="2">
+            <div class="prop-num">PATTERN ②</div>
+            <div class="prop-icon">📍</div>
+            <div class="prop-cond">土地なし</div>
+            <div class="prop-result">土地探し＋<br>キャンディハウス注文住宅</div>
+          </label>
+          <label class="prop-card">
+            <input type="radio" name="s-proposal" value="3">
+            <div class="prop-num">PATTERN ③</div>
+            <div class="prop-icon">🏚️</div>
+            <div class="prop-cond">予算が新築に合わない</div>
+            <div class="prop-result">中古＋<br>リノベーション（いちや）</div>
+          </label>
+          <label class="prop-card">
+            <input type="radio" name="s-proposal" value="4">
+            <div class="prop-num">PATTERN ④</div>
+            <div class="prop-icon">⚡</div>
+            <div class="prop-cond">とにかく早く住みたい</div>
+            <div class="prop-result">いちやの<br>不動産仲介</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ 阻害要因チェック -->
+    <div class="s-section">
+      <div class="s-hdr amber">⚠️ 阻害要因チェック</div>
+      <div class="s-body">
+        <div class="s-row">
+          <div class="s-label">競合他社の検討状況</div>
+          <textarea id="s-competitor" class="s-textarea" placeholder="どの会社を検討しているか、何社目か…" rows="2"></textarea>
+        </div>
+        <div class="s-row">
+          <div class="s-label">ローンへの不安</div>
+          <textarea id="s-loan" class="s-textarea" placeholder="借りられるか不安、収入が不安定、他にローンがある…" rows="2"></textarea>
+        </div>
+        <div class="s-row">
+          <div class="s-label">意思決定者</div>
+          <textarea id="s-decision" class="s-textarea" placeholder="誰が最終的に決める人か（本人・配偶者・両親）…" rows="2"></textarea>
+        </div>
+        <div class="s-row">
+          <div class="s-label">同席していない家族の温度感</div>
+          <textarea id="s-absent" class="s-textarea" placeholder="パートナーの意向・温度感…" rows="2"></textarea>
+        </div>
+        <div class="s-row">
+          <div class="s-label">その他阻害要因</div>
+          <textarea id="s-other-barrier" class="s-textarea" placeholder="その他気になること…" rows="2"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑤ テストクロージング確認 -->
+    <div class="s-section">
+      <div class="s-hdr red">🎯 テストクロージング確認</div>
+      <div class="s-body">
+        <div class="check-progress">
+          <div id="cdot-0" class="check-dot"></div>
+          <div id="cdot-1" class="check-dot"></div>
+          <div id="cdot-2" class="check-dot"></div>
+          <div id="cdot-3" class="check-dot"></div>
+          <div id="cdot-4" class="check-dot"></div>
+          <span id="check-count-label" class="check-count">0 / 5</span>
+          <span id="all-done-badge" class="all-done-badge">✓ 準備完了</span>
+        </div>
+        <div class="check-items">
+          <label class="check-item"><input type="checkbox" id="cl-0" onchange="updateChecklist()">競合状況を把握した</label>
+          <label class="check-item"><input type="checkbox" id="cl-1" onchange="updateChecklist()">ローンネックを確認した</label>
+          <label class="check-item"><input type="checkbox" id="cl-2" onchange="updateChecklist()">家族の意思決定者を確認した</label>
+          <label class="check-item"><input type="checkbox" id="cl-3" onchange="updateChecklist()">阻害要因への回答を準備した</label>
+          <label class="check-item"><input type="checkbox" id="cl-4" onchange="updateChecklist()">テストクロージングを実施した</label>
+        </div>
+
+        <hr class="divider">
+        <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px;">テストクロージングの反応</div>
+        <div class="reaction-grid">
+          <label class="react-label">
+            <input type="radio" name="s-closing-reaction" value="今日申込">🤝 今日パートナー申込
+          </label>
+          <label class="react-label">
+            <input type="radio" name="s-closing-reaction" value="阻害要因アポ">📅 阻害要因アポ設定
+          </label>
+          <label class="react-label">
+            <input type="radio" name="s-closing-reaction" value="家族同席再面談">👨‍👩‍👧 家族同席の再面談
+          </label>
+        </div>
+        <div class="s-row" style="margin-top:12px;">
+          <div class="s-label">詳細メモ</div>
+          <textarea id="s-closing-detail" class="s-textarea" placeholder="反応の詳細、次回に向けてのメモ…" rows="2"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑤-2 次回アポ確定 -->
+    <div class="s-section">
+      <div class="s-hdr orange">📅 次回アポ確定</div>
+      <div class="s-body">
+        <div class="s-row">
+          <div class="s-label">候補日①</div>
+          <input type="datetime-local" id="s-next1" class="s-input">
+        </div>
+        <div class="s-row">
+          <div class="s-label">候補日②</div>
+          <input type="datetime-local" id="s-next2" class="s-input">
+        </div>
+        <div class="s-row">
+          <div class="s-label">アポ取得</div>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;font-weight:700;color:var(--green);">
+            <input type="checkbox" id="s-apo-done" style="width:20px;height:20px;accent-color:var(--green);cursor:pointer;">
+            次回アポ取得済み ✓
+          </label>
+        </div>
+        <div class="s-row">
+          <div class="s-label">次回の目的</div>
+          <textarea id="s-next-purpose" class="s-textarea" placeholder="次回面談のアジェンダ・目的…" rows="2"></textarea>
+        </div>
+        <hr class="divider">
+        <button class="mini-talk-btn row-style" onclick="openMiniTalk('next-apo')">
+          <span class="mt-icon">📅</span>次回アポの二択トークを確認
+        </button>
+      </div>
+    </div>
+
+    <!-- 🔥 土地1発決めトーク -->
+    <div class="s-section" style="border:2px solid var(--orange);">
+      <div class="s-hdr orange">🔥 土地1発決めトーク</div>
+      <div class="s-body">
+        <div style="font-size:13px;color:var(--gray);margin-bottom:12px;line-height:1.6;">
+          土地を探しているお客様に対して使う、決断を後押しするクロージングトークです。
+        </div>
+        <button class="talk-btn land-talk-btn" onclick="openLandTalk()">
+          <span class="btn-icon">🔥</span>土地1発決めトークを表示
+        </button>
+      </div>
+    </div>
+
+    <!-- ⑤-3 同席していない家族への資料 -->
+    <div class="s-section">
+      <div class="s-hdr teal">👨‍👩‍👧 同席していない家族への資料</div>
+      <div class="s-body">
+        <label class="s-check-label">
+          <input type="checkbox" id="s-family-material-done">
+          同席していない家族への資料お渡し済み
+        </label>
+        <div class="doc-btn-grid">
+          <button class="doc-btn navy" onclick="openDocUrl('family')">
+            <span class="d-icon">📄</span>ご家族へのご説明資料
+          </button>
+          <button class="doc-btn navy" onclick="openDocUrl('voice')">
+            <span class="d-icon">⭐</span>お客様の声・施工事例
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑥ 次のアクション -->
+    <div class="s-section">
+      <div class="s-hdr purple">🚀 次のアクション</div>
+      <div class="s-body">
+        <div class="action-items">
+          <div class="action-item">
+            <label class="action-top">
+              <input type="checkbox" class="action-chk" id="action-0">
+              <span class="action-label">🤝 今日パートナー申込</span>
+            </label>
+          </div>
+          <div class="action-item">
+            <label class="action-top">
+              <input type="checkbox" class="action-chk" id="action-1">
+              <span class="action-label">📅 阻害要因アポを設定</span>
+            </label>
+            <div class="action-date">
+              <input type="datetime-local" id="action-date-1" class="s-input" style="max-width:260px;">
+            </div>
+          </div>
+          <div class="action-item">
+            <label class="action-top">
+              <input type="checkbox" class="action-chk" id="action-2">
+              <span class="action-label">👨‍👩‍👧 家族同席の再面談</span>
+            </label>
+            <div class="action-date">
+              <input type="datetime-local" id="action-date-2" class="s-input" style="max-width:260px;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑦ 担当者の気づきメモ -->
+    <div class="s-section">
+      <div class="s-hdr teal">💡 担当者の気づきメモ</div>
+      <div class="s-body">
+        <div class="s-row">
+          <div class="s-label">一番響いたこと</div>
+          <textarea id="s-resonated" class="s-textarea" placeholder="今日の面談でお客様が一番反応したポイント…" rows="2"></textarea>
+        </div>
+        <div class="s-row">
+          <div class="s-label">感情ワード・キーワード</div>
+          <textarea id="s-keywords" class="s-textarea" placeholder="次回の商談で必ず使う言葉をメモしてください。例：「子どもの笑顔」「毎日帰りたい家」…" rows="2"></textarea>
+        </div>
+        <div class="s-row">
+          <div class="s-label">次回必ず触れること</div>
+          <textarea id="s-next-topic" class="s-textarea" placeholder="次回のアジェンダ・話すべきテーマ…" rows="2"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑧ AI自動入力 -->
+    <div class="s-section">
+      <div class="s-hdr navy">🤖 商談録音テキストから自動入力</div>
+      <div class="s-body">
+        <div style="font-size:13px;color:var(--gray);margin-bottom:12px;line-height:1.6;">
+          商談の文字起こしをペーストして「AIで自動整理」を押すと、各項目に自動で入力されます。入力後に手動修正できます。
+        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;">文字起こしテキスト</div>
+        <textarea id="s-transcript" class="ai-paste" placeholder="ここに商談の文字起こしをペーストしてください…" rows="6"></textarea>
+        <div class="ai-key-wrap">
+          <label>🔑 API キー</label>
+          <input type="password" id="s-api-key" class="ai-key-input" placeholder="sk-ant-api03-..." oninput="saveApiKey()">
+        </div>
+        <div style="font-size:11px;color:var(--gray);margin-bottom:4px;">※ APIキーはブラウザのみで使用し、外部サーバーには送信されません。</div>
+        <button id="ai-btn" class="ai-run-btn" onclick="runAI()">
+          ✨ AIで自動整理
+        </button>
+        <div id="ai-status" class="ai-status"></div>
+      </div>
+    </div>
+
+  </div><!-- /.s-wrap -->
+
+  <div id="bottom-bar-staff" class="bottom-bar">
+    <button class="bb-print-btn" onclick="window.print()">🖨️ 印刷</button>
+    <button class="bb-switch-btn for-staff" onclick="switchTab('customer')">🏡 お客様版へ</button>
+  </div>
+</div><!-- /#tab-staff -->
+
+
+<!-- ================================================================
+     MODAL: グレード一覧
+================================================================ -->
+<div class="modal-overlay" id="grade-modal" onclick="closeGradeOutside(event)">
+  <div class="grade-modal-box">
+    <button class="modal-close" onclick="closeGradeModal()">✕</button>
+    <div class="modal-tag">CANDY HOUSE グレード</div>
+    <div class="modal-title">4グレード比較</div>
+
+    <div class="grade-cards-grid">
+
+      <!-- SIMPLE -->
+      <div class="gc simple">
+        <div class="gc-head">
+          <div class="gc-grade">GRADE 1 ／ SIMPLE</div>
+          <div class="gc-name">SIMPLE</div>
+          <div class="gc-tagline">「家はシンプルに。暮らしは自由に。」</div>
+        </div>
+        <div class="gc-body">
+          <ul class="gc-specs">
+            <li>断熱等級 <span class="spec-em">4</span></li>
+            <li>耐震等級 <span class="spec-em">1</span></li>
+            <li>サッシ：LIXILサーモスL / LOW-E</li>
+            <li>換気：第3種 個別換気</li>
+            <li>天井高：<span class="spec-em">2,400mm</span></li>
+            <li>遮熱シート：なし</li>
+            <li>省令準耐火：なし</li>
+            <li>設備：食洗器なし・タンクありトイレ・浴室乾燥なし</li>
+            <li>カラー選択肢は限定的</li>
+            <li>オール電化標準（エコキュート370L）</li>
+          </ul>
+          <div class="gc-target">💡 こんな方に：<br>とにかくコストを抑えたい方</div>
+        </div>
+        <button class="gc-pick" onclick="pickGrade('SIMPLE')">✓ このグレードで提案する</button>
+      </div>
+
+      <!-- STANDARD -->
+      <div class="gc standard">
+        <div class="gc-head">
+          <div class="gc-grade">GRADE 2 ／ STANDARD</div>
+          <div class="gc-name">STANDARD</div>
+          <div class="gc-tagline">「迷わない標準、揺るがない安心。」</div>
+        </div>
+        <div class="gc-body">
+          <ul class="gc-specs">
+            <li>断熱等級 <span class="spec-em">5</span> ／ ZEH相当 ／ 長期優良住宅認定</li>
+            <li>耐震等級 <span class="spec-em">3</span></li>
+            <li>遮熱シート：<span class="spec-em">あり</span></li>
+            <li>省令準耐火：<span class="spec-em">あり</span></li>
+            <li>サッシ：LIXILサーモスL / LOW-E</li>
+            <li>換気：第3種 ルフロ400×気密施工</li>
+            <li>天井高：<span class="spec-em">2,500mm</span></li>
+            <li>1次エネ消費量等級 <span class="spec-em">6</span></li>
+            <li>設備：サーモバス・収納建具・ハイドア一部採用</li>
+            <li>SIMPLEより選べる仕様が豊富</li>
+            <li>オール電化標準（エコキュート370L）</li>
+          </ul>
+          <div class="gc-target">💡 こんな方に：<br>性能と価格のバランスを重視する方</div>
+        </div>
+        <button class="gc-pick" onclick="pickGrade('STANDARD')">✓ このグレードで提案する</button>
+      </div>
+
+      <!-- OLIVE -->
+      <div class="gc olive">
+        <div class="gc-head">
+          <div class="gc-grade">GRADE 3 ／ OLIVE</div>
+          <div class="gc-name">OLIVE</div>
+          <div class="gc-tagline">「妥協しない。人が集まるキッチン。」</div>
+        </div>
+        <div class="gc-body">
+          <ul class="gc-specs">
+            <li>断熱等級 <span class="spec-em">5</span> ／ ZEH相当 ／ 長期優良住宅認定</li>
+            <li>耐震等級 <span class="spec-em">3</span></li>
+            <li>制震ダンパー：<span class="spec-em">まもりー搭載</span></li>
+            <li>遮熱シート：<span class="spec-em">あり</span> ／ 省令準耐火：<span class="spec-em">あり</span></li>
+            <li>サッシ：LIXILサーモスL LOW-E <span class="spec-em">アルゴンガス入り</span></li>
+            <li>換気：第3種 ルフロ400×気密施工</li>
+            <li>天井高：<span class="spec-em">2,500mm</span></li>
+            <li>キッチン：<span class="spec-em">ハイグレード（GRAFTEKT等）</span></li>
+            <li>洗面台：W1200 造作風（アイカ工業等）</li>
+            <li>トイレ：タンクレス風収納付き（ベーシアピタ）</li>
+            <li>浴室：全面カラーパネル採用</li>
+            <li>外壁：KMEW 光セラ15・玄関ポーチタイル仕上げ</li>
+            <li>玄関ドア：<span class="spec-em">電子錠スマート対応</span></li>
+            <li>オール電化標準（エコキュート370L）</li>
+          </ul>
+          <div class="gc-target">💡 こんな方に：<br>キッチンや内装にこだわりたい方・お客様を呼びたい方</div>
+        </div>
+        <button class="gc-pick" onclick="pickGrade('OLIVE')">✓ このグレードで提案する</button>
+      </div>
+
+      <!-- ○○LABEL -->
+      <div class="gc label">
+        <div class="gc-head">
+          <div class="gc-grade">GRADE 4 ／ ○○LABEL（ZEH+相当）</div>
+          <div class="gc-name">○○LABEL</div>
+          <div class="gc-tagline">「自動で整うから、余裕が生まれる。」</div>
+        </div>
+        <div class="gc-body">
+          <ul class="gc-specs">
+            <li>断熱等級 <span class="spec-em">6</span> ／ ZEH+相当 ／ 長期優良住宅認定</li>
+            <li>耐震等級 <span class="spec-em">3</span></li>
+            <li>制震ダンパー：<span class="spec-em">MIRAIE搭載</span></li>
+            <li>遮熱シート：<span class="spec-em">あり</span> ／ 省令準耐火：<span class="spec-em">あり</span></li>
+            <li>サッシ：<span class="spec-em">LIXIL TW LOW-Eアルゴンガス入り（最高グレード）</span></li>
+            <li>換気：第3種 ルフロ400×気密施工</li>
+            <li>天井高：<span class="spec-em">2,500mm</span></li>
+            <li>キッチン：ハイグレード＋<span class="spec-em">タッチレス水栓GOLD同等</span></li>
+            <li>洗面台：<span class="spec-em">自動水栓</span></li>
+            <li>トイレ：<span class="spec-em">自動洗浄タンクレス＋自動水栓手洗い</span></li>
+            <li>浴室：<span class="spec-em">外から自動お湯張り対応</span></li>
+            <li>IoT完備：照明・空調・電子錠・給湯の<span class="spec-em">自動化</span></li>
+            <li>外壁：KMEW 光セラ18 または 塗り壁＋SOLIDO</li>
+            <li>オール電化標準（エコキュート370L）</li>
+          </ul>
+          <div class="gc-target">💡 こんな方に：<br>最高性能・スマートホームにこだわる方</div>
+        </div>
+        <button class="gc-pick" onclick="pickGrade('○○LABEL（ZEH+相当）')">✓ このグレードで提案する</button>
+      </div>
+
+    </div><!-- /.grade-cards-grid -->
+  </div>
+</div>
+
+<!-- ================================================================
+     MODAL: 鉄板トーク
+================================================================ -->
+<div class="modal-overlay" id="talk-modal" onclick="closeTalkOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeTalkModal()">✕</button>
+    <div class="modal-tag">鉄板トーク スクリプト</div>
+    <div class="modal-title">キャンディハウスの「768万円」の話</div>
+    <div class="talk-script" id="talk-script-body">キャンディハウスの768万円というのは、家づくりへの私たちの姿勢を表した数字です。
+
+住宅業界には中間業者がたくさんいて、その分がお客様の価格に上乗せされています。キャンディハウスは自社施工にこだわることで、その中間コストをすべてカットしています。
+
+だから<em>同じ性能・同じ品質なら、他社より確実に安く建てられます。</em>
+
+実際に30坪で高気密・高断熱・耐震等級3の長期優良住宅が<em>1,800万円前後</em>で建てられます。他社で同じ性能を求めると<em>2,500万円以上</em>になることがほとんどです。
+
+768万円で建てるのは難しいですが、768万円という数字には
+「<em>家づくりのコストを限界まで下げてお客様に還元する</em>」という本気が込められています。
+
+ちなみに今日こだわりを聞かせてもらえれば、概算の資金計画をその場でお出しできます。他社との比較もできますよ。</div>
+    <button class="talk-copy-btn" onclick="copyTalk()">📋 コピーする</button>
+  </div>
+</div>
+
+
+<!-- ================================================================
+     MODAL: 状況別ミニトーク（共通）
+================================================================ -->
+<div class="modal-overlay" id="mini-talk-modal" onclick="closeMiniTalkOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeMiniTalkModal()">✕</button>
+    <div class="modal-tag" id="mt-tag"></div>
+    <div class="modal-title" id="mt-title"></div>
+    <div class="talk-script" id="mt-body"></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap;">
+      <button class="talk-copy-btn" onclick="copyMiniTalk()">📋 コピーする</button>
+      <label class="talk-used-wrap" style="margin-top:0;flex:1;min-width:160px;">
+        <input type="checkbox" id="mt-used">このトークを使った ✓
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     MODAL: 土地1発決めトーク
+================================================================ -->
+<div class="modal-overlay" id="land-talk-modal" onclick="closeLandTalkOutside(event)">
+  <div class="modal-box" style="max-width:680px;">
+    <button class="modal-close" onclick="closeLandTalkModal()">✕</button>
+    <div class="modal-tag">🔥 土地クロージング</div>
+    <div class="modal-title">土地1発決めトーク</div>
+    <div class="talk-script" id="land-talk-body">〇〇様、土地についてひとつお伝えしたいことがあります。
+
+実は皆さんの9割が1回目の内覧で土地を決められます。
+というのも、限られたエリアで探しますので
+〇〇様は初めてですが、ずっと探し続けている方もいます。
+いい土地は早い者勝ちなんです。
+
+よく皆さん「安くて広くて駅近の土地ありますか？」
+と聞かれるんですが、正直そんな土地は存在しません。
+
+駅近で広ければ高い。安くて駅近なら狭い。
+これは市場の原理なので仕方がないんです。
+
+だから考え方をひとつ変えてほしいんです。
+予算の中で〇〇様が一番大事にしたいもの、
+さっき「△△」とおっしゃってましたよね。
+それが叶っていたら、即決していいと思います。
+
+もうひとつだけ大事なことをお伝えしてもいいですか。
+
+「もう少し待とう」と思われる方が結構いらっしゃいます。
+でも正直に言います。
+待つことはお客様にとって何もメリットがありません。
+
+なぜかというと、出始めの土地は最初が一番高いんです。
+そこから値段が下がることはほとんどありません。
+
+そしてそのしわ寄せはどこに行くかというと
+全部建物代なんです。
+
+家を小さくしたり、
+こだわりたかった設備を削ったり。
+
+さらに今後の物価上昇、金利の上昇リスク、
+それに待っている間の賃貸代。
+
+どれを見てもリスクしかないんです。
+
+だから私は営業トークとして言っているんじゃなくて、
+本当にお客様のことを思って言っています。
+
+1日でも早く動いた方が
+絶対にお客様のためになります。
+
+市場に出ている物件は全部ご紹介します。
+土地は急いで、打合せはゆっくりでも全然大丈夫です。
+
+だから次回、一緒にいい土地を決めましょう。
+私が全力でサポートします。</div>
+    <button class="talk-copy-btn" onclick="copyLandTalk()" style="margin-right:10px;">📋 コピーする</button>
+    <label class="talk-used-wrap" style="margin-top:16px;">
+      <input type="checkbox" id="land-talk-used">このトークを使った ✓
+    </label>
+  </div>
+</div>
+
+<script>
+// ===== TAB SWITCH =====
+function switchTab(tab) {
+  const c = tab === 'customer';
+  document.getElementById('tab-customer').style.display = c ? 'block' : 'none';
+  document.getElementById('tab-staff').style.display    = c ? 'none'  : 'block';
+  document.getElementById('bottom-bar-customer').style.display = c ? '' : 'none';
+  document.getElementById('bottom-bar-staff').style.display    = c ? 'none' : '';
+  document.getElementById('btn-customer').className = 'tab-btn' + (c  ? ' active-customer' : '');
+  document.getElementById('btn-staff').className    = 'tab-btn' + (!c ? ' active-staff' : '');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== INIT =====
+(function() {
+  document.getElementById('tab-customer').style.display = 'block';
+  document.getElementById('tab-staff').style.display    = 'none';
+  document.getElementById('bottom-bar-staff').style.display = 'none';
+  const today = new Date();
+  const y = today.getFullYear();
+  const m = String(today.getMonth() + 1).padStart(2,'0');
+  const d = String(today.getDate()).padStart(2,'0');
+  document.getElementById('s-date').value = `${y}-${m}-${d}`;
+  loadDocUrls();
+  loadApiKey();
+})();
+
+// ===== RESET =====
+function confirmReset() {
+  if(!confirm('入力内容をすべてリセットします。よろしいですか？')) return;
+  document.querySelectorAll('textarea').forEach(el => el.value = '');
+  document.querySelectorAll('input[type=text], input[type=datetime-local]').forEach(el => el.value = '');
+  document.querySelectorAll('input[type=radio], input[type=checkbox]').forEach(el => el.checked = false);
+  document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+  const today = new Date();
+  document.getElementById('s-date').value = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  document.getElementById('ai-status').className = 'ai-status';
+  document.getElementById('c-school-area-wrap').style.display = 'none';
+  clearGrade();
+  updateChecklist();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== CHECKLIST =====
+function updateChecklist() {
+  let count = 0;
+  for(let i = 0; i < 5; i++) {
+    const done = document.getElementById('cl-' + i).checked;
+    if(done) count++;
+    document.getElementById('cdot-' + i).className = 'check-dot' + (done ? ' done' : '');
+  }
+  document.getElementById('check-count-label').textContent = count + ' / 5';
+  document.getElementById('all-done-badge').classList.toggle('visible', count === 5);
+}
+
+// ===== MODAL =====
+function openTalkModal() {
+  document.getElementById('talk-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeTalkModal() {
+  document.getElementById('talk-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeTalkOutside(e) {
+  if(e.target === document.getElementById('talk-modal')) closeTalkModal();
+}
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') {
+    closeTalkModal(); closeMiniTalkModal(); closeLandTalkModal(); closeGradeModal();
+  }
+});
+// ===== GRADE MODAL =====
+function openGradeModal() {
+  document.getElementById('grade-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeGradeModal() {
+  document.getElementById('grade-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeGradeOutside(e) {
+  if(e.target === document.getElementById('grade-modal')) closeGradeModal();
+}
+function pickGrade(name) {
+  document.getElementById('grade-selected-val').textContent = name;
+  document.getElementById('grade-selected-row').style.display = 'flex';
+  closeGradeModal();
+}
+function clearGrade() {
+  document.getElementById('grade-selected-val').textContent = '';
+  document.getElementById('grade-selected-row').style.display = 'none';
+}
+
+function copyTalk() {
+  const text = document.getElementById('talk-script-body').innerText;
+  navigator.clipboard.writeText(text).then(() => alert('コピーしました！')).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('コピーしました！');
+  });
+}
+
+// ===== DOC URLS =====
+function toggleUrlPanel() {
+  document.getElementById('doc-url-panel').classList.toggle('open');
+}
+function saveDocUrls() {
+  ['perf','sim','simple','standard','olive','label','family','voice'].forEach(k => {
+    const el = document.getElementById('url-' + k);
+    if(el) localStorage.setItem('ch_url_' + k, el.value);
+  });
+}
+function loadDocUrls() {
+  ['perf','sim','simple','standard','olive','label','family','voice'].forEach(k => {
+    const el = document.getElementById('url-' + k);
+    if(!el) return;
+    const stored = localStorage.getItem('ch_url_' + k);
+    el.value = (stored !== null) ? stored : (DOC_URLS[k] || '');
+  });
+}
+function openDocUrl(key) {
+  const stored = localStorage.getItem('ch_url_' + key);
+  const url = (stored && stored.trim()) ? stored : (DOC_URLS[key] || '');
+  if(url) window.open(url, '_blank');
+  else alert('⚙️ URLが設定されていません。\nファイル冒頭の DOC_URLS か「URLを設定する」から入力してください。');
+}
+
+// ===== SCHOOL AREA TOGGLE =====
+function toggleSchoolArea(el) {
+  document.getElementById('c-school-area-wrap').style.display =
+    (el.value === '変えたくない' || el.value === '多少OK') ? '' : 'none';
+}
+
+// ===== MINI TALK =====
+const MINI_TALKS = {
+  'low-temp': {
+    tag: '状況別トーク',
+    title: '温度感が低いお客様への一言トーク',
+    body: `今日は情報収集だけでも全然OKです！\nただ、良い土地は早い者勝ちなので\n一緒に条件だけ整理しておきましょう。\nいざという時にすぐ動けますよ`
+  },
+  'value': {
+    tag: '状況別トーク',
+    title: '価値の再確認トーク',
+    body: `確かに最初の金額だけ見ると高く感じるかもしれません。\nでも30年間のランニングコストで比較すると\nキャンディハウスが一番安くなるケースがほとんどです。\n高気密・高断熱の家は冷暖房費が\n普通の家の半分以下になります。\n30年で計算すると数百万円の差になります。\n家の値段だけじゃなくて\n住んでからのトータルコストで考えてみてください`
+  },
+  'loan-talk': {
+    tag: '状況別トーク',
+    title: 'ローン不安へのトーク',
+    body: `ローンのことは今日その場で\nだいたいの目安をお伝えできますよ。\n審査に通るかどうかも\nざっくり一緒に確認しましょう。\n正式な審査じゃないので気軽に聞いてください！`
+  },
+  'absent-family': {
+    tag: '状況別トーク',
+    title: '同席していない家族へのお土産トーク',
+    body: `奥さん（旦那さん）にもぜひ見せてあげてください。\nこのリンクに写真や実際のお客様の声も載ってるので\n一緒に見てもらえたら嬉しいです！`
+  },
+  'next-apo': {
+    tag: '次回アポ',
+    title: '次回アポの二択トーク',
+    body: `次回、〇〇日と〇〇日どちらが\nご都合よさそうですか？\n土地の情報も持ってきますね！`
+  },
+
+  // ===== 鉄板トーク集 =====
+  'tc1': {
+    tag: 'OPENING',
+    title: '「なぜキャンディハウスか」最初の一言',
+    body: `キャンディハウスを選んでいただいたお客様に
+共通しておっしゃることがあります。
+「ここの人は正直やな」って言葉です。
+私たちは自社施工にこだわって中間マージンをゼロにしています。
+その分を全部お客様に還元する。それがキャンディハウスです。
+今日は正直に何でもお話しますので、何でも聞いてください`
+  },
+  'tc2': {
+    tag: '価格',
+    title: '「なぜこの価格で建てられるのか」',
+    body: `住宅業界には実は中間業者がたくさんいます。
+設計事務所、施工管理会社、下請け業者…
+その全員にマージンが発生して、最終的にお客様の価格に乗っかってきます。
+キャンディハウスは自社施工なので、その中間を全部カットしています。
+だから同じ性能・同じ品質で他社より確実に安く建てられるんです`
+  },
+  'tc3': {
+    tag: '性能',
+    title: '「高気密・高断熱って何が違うの？」',
+    body: `高気密・高断熱の家って聞くと難しそうですよね。
+簡単に言うと「魔法瓶みたいな家」です。
+夏は涼しく、冬は暖かく、光熱費が普通の家の半分以下になります。
+実際に30年で計算すると光熱費だけで数百万円の差が出ます。
+さらに温度差がなくなるのでヒートショックのリスクも下がります。
+家族の健康を守る家でもあるんです`
+  },
+  'tc4': {
+    tag: 'アフター',
+    title: '「建てた後も安心」自社施工の保証体制',
+    body: `大手ハウスメーカーで建てると、
+何か問題があった時に連絡先がわからなくなることがあります。
+施工は下請け、管理は別会社…という構造だからです。
+キャンディハウスは自社施工なので、
+建てた職人が直接対応します。
+何かあればすぐ動けます。それが自社施工の一番の強みです`
+  },
+  'tc5': {
+    tag: '競合対応',
+    title: '「他社と迷っている」へのアンサー',
+    body: `他社さんと比較されるのは当然だと思います。
+正直に言うと、大手ハウスメーカーは
+ブランド料・広告費・展示場の維持費が価格に含まれています。
+同じ予算でキャンディハウスなら
+一回り大きい家か、グレードの高い仕様が選べます。
+地場の工務店と比べると、
+キャンディハウスは性能基準が明確で、
+全棟許容応力度計算・耐震等級3が標準です。
+数字で比較できるので、ぜひ他社の仕様書と並べてみてください`
+  },
+  'tc6': {
+    tag: 'クロージング',
+    title: '「今日どこまで決めるか」次のステップへ',
+    body: `今日無理に決めなくて全然大丈夫です。
+ただ一つだけお願いがあります。
+次回までに「自分たちが一番大事にしたいこと」を
+家族で話し合ってきてもらえますか？
+予算でも、場所でも、デザインでも何でもいいです。
+その答えを持ってきてもらえたら、
+次回で全部クリアにできると思います。
+〇〇日と〇〇日、どちらがご都合よさそうですか？`
+  },
+  'tc7': {
+    tag: '資金計画',
+    title: '「お金のこと、正直に話しましょう」',
+    body: `お金の話って聞きにくいですよね。
+でも正直に話した方が絶対にいいと思っています。
+住宅ローンは月々の返済額で考えるのが一番わかりやすいです。
+今の家賃と比較して、いくらまでなら無理なく払えそうか。
+そこから逆算して総予算を出せます。
+さらに住宅ローン控除で年間最大35万円戻ってきます。
+今日ざっくりした資金計画を一緒に出しましょうか？`
+  },
+  'tc8': {
+    tag: '土地',
+    title: '「土地がない方へのセットプラン提案」',
+    body: `土地がまだないという方、実は一番多いパターンです。
+キャンディハウスは土地探しからサポートできます。
+不動産部門のいちやの不動産仲介と連携しているので、
+土地と建物をセットでご提案できます。
+バラバラに動くより、
+土地と建物の予算配分を最初から一緒に考えた方が
+絶対にいい家になります。
+まず希望エリアと予算を教えてもらえれば、
+すぐに候補をお出しできますよ`
+  }
+};
+function openMiniTalk(key) {
+  const d = MINI_TALKS[key]; if(!d) return;
+  document.getElementById('mt-tag').textContent = d.tag;
+  document.getElementById('mt-title').textContent = d.title;
+  document.getElementById('mt-body').textContent = d.body;
+  document.getElementById('mt-used').checked = false;
+  document.getElementById('mini-talk-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMiniTalkModal() {
+  document.getElementById('mini-talk-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeMiniTalkOutside(e) {
+  if(e.target === document.getElementById('mini-talk-modal')) closeMiniTalkModal();
+}
+function copyMiniTalk() {
+  const text = document.getElementById('mt-body').innerText;
+  navigator.clipboard.writeText(text).then(() => alert('コピーしました！')).catch(() => {
+    const ta = document.createElement('textarea'); ta.value = text;
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta); alert('コピーしました！');
+  });
+}
+
+// ===== LAND TALK =====
+function openLandTalk() {
+  document.getElementById('land-talk-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLandTalkModal() {
+  document.getElementById('land-talk-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeLandTalkOutside(e) {
+  if(e.target === document.getElementById('land-talk-modal')) closeLandTalkModal();
+}
+function copyLandTalk() {
+  const text = document.getElementById('land-talk-body').innerText;
+  navigator.clipboard.writeText(text).then(() => alert('コピーしました！')).catch(() => {
+    const ta = document.createElement('textarea'); ta.value = text;
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta); alert('コピーしました！');
+  });
+}
+
+// ===== API KEY =====
+function saveApiKey() {
+  localStorage.setItem('ch_api_key', document.getElementById('s-api-key').value);
+}
+function loadApiKey() {
+  const v = localStorage.getItem('ch_api_key');
+  if(v) document.getElementById('s-api-key').value = v;
+}
+
+// ===== AI AUTO FILL =====
+async function runAI() {
+  const transcript = document.getElementById('s-transcript').value.trim();
+  const apiKey     = document.getElementById('s-api-key').value.trim();
+  const status     = document.getElementById('ai-status');
+  const btn        = document.getElementById('ai-btn');
+
+  if(!transcript) { alert('文字起こしテキストを入力してください。'); return; }
+  if(!apiKey)     { alert('APIキーを入力してください。'); return; }
+
+  btn.disabled = true;
+  status.className = 'ai-status loading';
+  status.textContent = '⏳ AIが分析中です…（10〜20秒かかります）';
+
+  const sys = `あなたは住宅営業の初回面談記録を整理するアシスタントです。
+文字起こしから各項目を抽出してJSONで返してください。情報がない場合は空文字にしてください。
+
+{
+  "c_expect": "今日の面談に期待すること",
+  "c_trigger": "家づくりを考え始めたきっかけ",
+  "c_anxiety": "今一番不安に思っていること",
+  "c_barrier": "家づくりを進められていない理由",
+  "c_morning": "家が完成した朝どんな気持ちでいたいか",
+  "c_happy_who": "一番喜んでほしい家族",
+  "c_happy_words": "その方に言ってもらいたい言葉",
+  "c_bad_exp": "これまで住宅会社に相談して嫌だったこと",
+  "c_ideal_staff": "理想の担当者",
+  "c_land": "土地の状況（あり／探し中／未定 のいずれか）",
+  "c_area": "希望エリア",
+  "c_madori": "希望間取り（2LDK／3LDK／4LDK／その他 のいずれか）",
+  "c_move_in": "入居希望時期",
+  "c_kodawari": "こだわりポイント（カンマ区切り。気密・断熱性能／耐震性能／デザイン／収納／広いリビング／子供部屋／在宅ワークスペース／庭／駐車場／その他）",
+  "c_dissatisfaction": "現在の住まいへの不満",
+  "c_monthly": "月々の支払い希望額",
+  "c_downpayment": "頭金の金額",
+  "c_budget_over": "予算オーバー時の対応（増やす／妥協／中古／未定 のいずれか）",
+  "c_other_req": "その他要望",
+  "s_name": "お客様名",
+  "s_phone": "連絡先",
+  "s_age_job": "年齢・職業",
+  "s_family": "家族構成",
+  "s_route": "来店経路（ホームページ／LP／看板／インスタ／YouTube／紹介／その他 のいずれか）",
+  "s_competitor": "競合他社の検討状況",
+  "s_loan": "ローンへの不安内容",
+  "s_decision": "家族の意思決定者",
+  "s_absent": "同席していない家族の温度感",
+  "s_other_barrier": "その他阻害要因",
+  "s_resonated": "今日の面談で一番響いたこと",
+  "s_keywords": "感情ワード・キーワード",
+  "s_next_topic": "次回面談で必ず触れること"
+}
+
+JSONのみを返してください。`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5',
+        max_tokens: 2048,
+        system: sys,
+        messages: [{ role: 'user', content: '文字起こし：\n\n' + transcript }]
+      })
+    });
+
+    if(!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || 'APIエラー: ' + res.status);
+    }
+
+    const data = await res.json();
+    const raw  = data.content[0].text.trim().replace(/^```json?\s*/i,'').replace(/```$/,'');
+    const d    = JSON.parse(raw);
+    applyAI(d);
+
+    status.className = 'ai-status ok';
+    status.textContent = '✅ 自動入力が完了しました。内容を確認・修正してください。';
+  } catch(e) {
+    status.className = 'ai-status err';
+    status.textContent = '❌ エラー: ' + e.message;
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function sf(id, v) { if(!v) return; const el = document.getElementById(id); if(el) el.value = v; }
+function sr(name, v) {
+  if(!v) return;
+  document.querySelectorAll(`input[type=radio][name="${name}"]`).forEach(el => { if(el.value === v) el.checked = true; });
+}
+function sc(name, v) {
+  if(!v) return;
+  const vals = v.split(',').map(s => s.trim());
+  document.querySelectorAll(`input[type=checkbox][name="${name}"]`).forEach(el => { if(vals.includes(el.value)) el.checked = true; });
+}
+function ss(id, v) {
+  if(!v) return;
+  const el = document.getElementById(id); if(!el) return;
+  for(let i = 0; i < el.options.length; i++) {
+    if(el.options[i].value === v || el.options[i].text === v) { el.selectedIndex = i; return; }
+  }
+}
+
+function applyAI(d) {
+  sf('c-expect', d.c_expect); sf('c-trigger', d.c_trigger); sf('c-anxiety', d.c_anxiety);
+  sf('c-barrier', d.c_barrier); sf('c-morning', d.c_morning); sf('c-happy-who', d.c_happy_who);
+  sf('c-happy-words', d.c_happy_words); sf('c-bad-exp', d.c_bad_exp); sf('c-ideal-staff', d.c_ideal_staff);
+  sr('c-land', d.c_land); sf('c-area', d.c_area); ss('c-madori', d.c_madori);
+  sr('c-move-in', d.c_move_in); sc('c-kodawari', d.c_kodawari);
+  sf('c-dissatisfaction', d.c_dissatisfaction); sf('c-monthly', d.c_monthly);
+  sf('c-downpayment', d.c_downpayment); sr('c-budget-over', d.c_budget_over);
+  sf('c-other-req', d.c_other_req);
+  sf('s-name', d.s_name); sf('s-phone', d.s_phone); sf('s-age-job', d.s_age_job);
+  sf('s-family', d.s_family); ss('s-route', d.s_route);
+  sf('s-competitor', d.s_competitor); sf('s-loan', d.s_loan);
+  sf('s-decision', d.s_decision); sf('s-absent', d.s_absent);
+  sf('s-other-barrier', d.s_other_barrier); sf('s-resonated', d.s_resonated);
+  sf('s-keywords', d.s_keywords); sf('s-next-topic', d.s_next_topic);
+}
+</script>
+</body>
+</html>
