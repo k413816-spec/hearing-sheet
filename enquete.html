@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>アンケート｜いちやの不動産仲介</title>
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  background: #F2F0EB;
+  color: #1A1A1A;
+  min-height: 100vh;
+  font-size: 16px;
+}
+textarea, input, select { font-family: inherit; font-size: inherit; }
+
+/* ===== CSS VARIABLES ===== */
+:root {
+  --orange:    #F07422;
+  --orange-dk: #C95E10;
+  --orange-lt: #FFE4C8;
+  --orange-cr: #FFF8F2;
+  --navy:      #1A3A5C;
+  --navy-mid:  #2E6DA4;
+  --navy-lt:   #EBF3FC;
+  --navy-dk:   #0D2440;
+  --green:     #1A7A45;
+  --green-lt:  #E6F4ED;
+  --red:       #C0392B;
+  --gray:      #6B7280;
+  --gray-lt:   #F5F5F5;
+  --border:    #E0D8D0;
+  --shadow:    0 2px 12px rgba(0,0,0,.09);
+}
+
+/* ===== SITE HEADER ===== */
+.site-header {
+  background: linear-gradient(135deg, var(--navy-dk) 0%, var(--navy) 100%);
+  height: 54px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  box-shadow: 0 2px 10px rgba(0,0,0,.3);
+  gap: 10px;
+}
+.hdr-logo {
+  width: 34px; height: 34px;
+  background: var(--orange);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.hdr-title { color: #fff; font-size: 14px; font-weight: 700; line-height: 1.3; }
+.hdr-sub   { color: var(--orange-lt); font-size: 10px; letter-spacing: .04em; }
+
+/* ===== WRAP ===== */
+.wrap { max-width: 760px; margin: 0 auto; padding: 24px 14px 120px; }
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, var(--orange) 0%, #D4601A 100%);
+  border-radius: 18px;
+  padding: 26px 24px 22px;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '📋';
+  position: absolute; right: -10px; bottom: -14px;
+  font-size: 90px; opacity: .12; line-height: 1;
+}
+.hero-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+.hero-sub   { font-size: 13px; color: rgba(255,255,255,.88); line-height: 1.6; }
+
+/* ===== SECTION ===== */
+.section { margin-bottom: 24px; }
+.section-hdr {
+  background: linear-gradient(90deg, var(--navy-dk) 0%, var(--navy-mid) 100%);
+  color: #fff;
+  padding: 11px 18px;
+  border-radius: 12px 12px 0 0;
+  font-size: 14px; font-weight: 800;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-body {
+  background: #fff;
+  border-radius: 0 0 12px 12px;
+  border: 1px solid #C8D8EC; border-top: none;
+}
+
+/* ===== FIELD ROW ===== */
+.frow {
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid #EEF3F9;
+}
+.frow:last-child { border-bottom: none; }
+.flabel {
+  font-size: 13px; font-weight: 700; color: var(--navy);
+  margin-bottom: 7px;
+  display: flex; align-items: center; gap: 6px;
+}
+.badge-req {
+  background: var(--red); color: #fff;
+  font-size: 10px; font-weight: 700;
+  padding: 2px 6px; border-radius: 4px;
+}
+.badge-opt {
+  background: var(--gray); color: #fff;
+  font-size: 10px; font-weight: 700;
+  padding: 2px 6px; border-radius: 4px;
+}
+
+/* ===== INPUTS ===== */
+.finput, .fselect {
+  width: 100%;
+  border: 1.5px solid #C8D8EC;
+  border-radius: 9px;
+  padding: 10px 13px;
+  font-size: 14px;
+  color: #222;
+  background: var(--navy-lt);
+  outline: none;
+  transition: border .15s, box-shadow .15s;
+}
+.finput:focus, .fselect:focus {
+  border-color: var(--navy-mid);
+  box-shadow: 0 0 0 3px rgba(46,109,164,.12);
+  background: #fff;
+}
+.fselect {
+  appearance: none;
+  background: var(--navy-lt) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' fill='none'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23888' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+  padding-right: 34px;
+  cursor: pointer;
+}
+.finput-sm { width: 160px; }
+.inline-group { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+/* ===== POSTAL ROW ===== */
+.postal-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.postal-row .finput { flex: 1; min-width: 120px; max-width: 180px; }
+.postal-btn {
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  border-radius: 9px;
+  padding: 10px 16px;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity .15s;
+}
+.postal-btn:hover { opacity: .85; }
+.postal-msg { font-size: 12px; color: var(--gray); margin-top: 6px; }
+.postal-msg.err { color: var(--red); }
+
+/* ===== FAMILY CARD ===== */
+.family-list { display: flex; flex-direction: column; gap: 14px; }
+.family-card {
+  background: var(--navy-lt);
+  border: 1.5px solid #BFD4EC;
+  border-radius: 12px;
+  padding: 16px 16px 14px;
+  position: relative;
+}
+.family-card-hdr {
+  font-size: 13px; font-weight: 800; color: var(--navy);
+  margin-bottom: 12px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.family-remove-btn {
+  background: #FDECEA;
+  border: 1.5px solid #F5C6C2;
+  border-radius: 7px;
+  color: var(--red);
+  font-size: 12px; font-weight: 700;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.family-remove-btn:hover { background: var(--red); color: #fff; border-color: var(--red); }
+.family-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 540px) { .family-grid { grid-template-columns: 1fr; } }
+.family-field-label {
+  font-size: 11px; font-weight: 700; color: var(--navy);
+  margin-bottom: 5px; opacity: .8;
+}
+.family-grid .finput { background: #fff; }
+
+/* ===== ADD BUTTON ===== */
+.add-family-btn {
+  width: 100%;
+  background: #fff;
+  border: 2px dashed var(--navy-mid);
+  border-radius: 12px;
+  color: var(--navy-mid);
+  font-size: 14px; font-weight: 700;
+  padding: 14px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all .15s;
+  margin-top: 12px;
+}
+.add-family-btn:hover { background: var(--navy-lt); border-style: solid; }
+.add-icon { font-size: 20px; }
+
+/* ===== CHECKBOX GROUP ===== */
+.check-grid {
+  display: flex; flex-wrap: wrap; gap: 9px;
+}
+.check-label {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--navy-lt); border: 1.5px solid #BFD4EC;
+  border-radius: 9px; padding: 9px 14px;
+  cursor: pointer; font-size: 13px; font-weight: 600; color: #333;
+  transition: all .15s; user-select: none;
+}
+.check-label input { width: 18px; height: 18px; accent-color: var(--navy-mid); cursor: pointer; flex-shrink: 0; }
+.check-label:has(input:checked) {
+  background: var(--navy-lt); border-color: var(--navy-mid); color: var(--navy);
+  box-shadow: 0 0 0 2px rgba(46,109,164,.18);
+}
+
+/* ===== SUBMIT BUTTON ===== */
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--orange-dk) 0%, var(--orange) 100%);
+  color: #fff; border: none; border-radius: 14px; padding: 18px 20px;
+  font-size: 17px; font-weight: 800; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  box-shadow: 0 4px 18px rgba(240,116,34,.4);
+  transition: all .18s;
+}
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240,116,34,.5); }
+.submit-btn:active { transform: none; }
+
+/* ===== THANK YOU OVERLAY ===== */
+.thankyou-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 500;
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.thankyou-overlay.open { display: flex; }
+.thankyou-box {
+  background: #fff; border-radius: 24px;
+  padding: 48px 36px;
+  text-align: center;
+  max-width: 400px; width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  animation: popIn .3s cubic-bezier(.175,.885,.32,1.275);
+}
+@keyframes popIn {
+  from { opacity:0; transform: scale(.8); }
+  to   { opacity:1; transform: scale(1); }
+}
+.thankyou-icon { font-size: 64px; margin-bottom: 16px; }
+.thankyou-title { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+.thankyou-msg { font-size: 14px; color: var(--gray); line-height: 1.8; margin-bottom: 24px; }
+.thankyou-close-btn {
+  background: var(--navy); color: #fff; border: none;
+  border-radius: 10px; padding: 12px 32px;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: opacity .15s;
+}
+.thankyou-close-btn:hover { opacity: .85; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .postal-row .finput { max-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="hdr-logo">🍬</div>
+  <div>
+    <div class="hdr-title">いちやの不動産仲介</div>
+    <div class="hdr-sub">お客様アンケート</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-title">お客様アンケート</div>
+    <div class="hero-sub">ご来店ありがとうございます。<br>以下の項目をご記入ください。</div>
+  </div>
+
+  <!-- ① ご家族情報 -->
+  <div class="section">
+    <div class="section-hdr">👨‍👩‍👧‍👦 ご家族情報</div>
+    <div class="section-body">
+      <div class="frow">
+        <div id="family-list" class="family-list"></div>
+        <button type="button" class="add-family-btn" onclick="addFamily()">
+          <span class="add-icon">＋</span> 家族を追加する
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② 住所 -->
+  <div class="section">
+    <div class="section-hdr">🏠 ご住所</div>
+    <div class="section-body">
+
+      <div class="frow">
+        <div class="flabel">郵便番号 <span class="badge-req">必須</span></div>
+        <div class="postal-row">
+          <input type="text" id="postal-code" class="finput" placeholder="例：5980000" maxlength="8" inputmode="numeric"
+            oninput="formatPostal(this)" onkeydown="if(event.key==='Enter'){searchPostal();}">
+          <button type="button" class="postal-btn" onclick="searchPostal()">🔍 住所を検索</button>
+        </div>
+        <div id="postal-msg" class="postal-msg"></div>
+      </div>
+
+      <div class="frow">
+        <div class="flabel">都道府県・市区町村 <span class="badge-req">必須</span></div>
+        <input type="text" id="address-pref-city" class="finput" placeholder="郵便番号から自動入力されます" readonly>
+      </div>
+
+      <div class="frow">
+        <div class="flabel">番地 <span class="badge-req">必須</span></div>
+        <input type="text" id="address-street" class="finput" placeholder="例：1丁目2番3号">
+      </div>
+
+      <div class="frow">
+        <div class="flabel">マンション名 <span class="badge-opt">任意</span></div>
+        <input type="text" id="address-building" class="finput" placeholder="例：〇〇マンション">
+      </div>
+
+      <div class="frow">
+        <div class="flabel">号室 <span class="badge-opt">任意</span></div>
+        <input type="text" id="address-room" class="finput finput-sm" placeholder="例：101号室">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ③ 知ったきっかけ -->
+  <div class="section">
+    <div class="section-hdr">📣 知ったきっかけ</div>
+    <div class="section-body">
+      <div class="frow">
+        <div class="flabel">当社を知ったきっかけを教えてください <span class="badge-req">必須</span></div>
+        <div style="font-size:12px;color:var(--gray);margin-bottom:10px;">複数回答可</div>
+        <div class="check-grid">
+          <label class="check-label"><input type="checkbox" name="trigger" value="ネット検索"> ネット検索</label>
+          <label class="check-label"><input type="checkbox" name="trigger" value="インスタ"> インスタ</label>
+          <label class="check-label"><input type="checkbox" name="trigger" value="LINE"> LINE</label>
+          <label class="check-label"><input type="checkbox" name="trigger" value="YouTube"> YouTube</label>
+          <label class="check-label"><input type="checkbox" name="trigger" value="Google口コミ"> Google口コミ</label>
+          <label class="check-label"><input type="checkbox" name="trigger" value="WEB広告"> WEB広告</label>
+          <label class="check-label"><input type="checkbox" name="trigger" value="看板"> 看板</label>
+          <label class="check-label"><input type="checkbox" name="trigger" value="近隣通りすがり"> 近隣通りすがり</label>
+          <label class="check-label"><input type="checkbox" name="trigger" value="チラシ"> チラシ</label>
+          <label class="check-label"><input type="checkbox" name="trigger" value="紹介"> 紹介</label>
+          <label class="check-label"><input type="checkbox" name="trigger" value="いちやHP"> いちやHP</label>
+          <label class="check-label"><input type="checkbox" name="trigger" value="地域雑誌"> 地域雑誌</label>
+          <label class="check-label"><input type="checkbox" name="trigger" value="その他"> その他</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 送信ボタン -->
+  <button type="button" class="submit-btn" onclick="submitForm()">
+    📤 送信してCSVをダウンロード
+  </button>
+
+</div><!-- /.wrap -->
+
+<!-- ===== THANK YOU OVERLAY ===== -->
+<div id="thankyou-overlay" class="thankyou-overlay">
+  <div class="thankyou-box">
+    <div class="thankyou-icon">🙏</div>
+    <div class="thankyou-title">ご協力ありがとうございました</div>
+    <div class="thankyou-msg">
+      アンケートのご回答をいただきありがとうございます。<br>
+      いただいた情報は大切に活用させていただきます。
+    </div>
+    <button class="thankyou-close-btn" onclick="closeThankyou()">閉じる</button>
+  </div>
+</div>
+
+<script>
+/* ===================================================
+   家族カード管理
+=================================================== */
+let familyCount = 0;
+
+function addFamily() {
+  familyCount++;
+  const idx = familyCount;
+  const list = document.getElementById('family-list');
+
+  const card = document.createElement('div');
+  card.className = 'family-card';
+  card.id = 'family-card-' + idx;
+  card.innerHTML = `
+    <div class="family-card-hdr">
+      <span>👤 家族 ${idx}</span>
+      ${idx > 1 ? `<button type="button" class="family-remove-btn" onclick="removeFamily(${idx})">✕ 削除</button>` : ''}
+    </div>
+    <div class="family-grid">
+      <div>
+        <div class="family-field-label">氏名</div>
+        <input type="text" class="finput" id="family-name-${idx}" placeholder="例：山田 太郎">
+      </div>
+      <div>
+        <div class="family-field-label">生年月日</div>
+        <input type="date" class="finput" id="family-dob-${idx}" onchange="calcAge(${idx})">
+      </div>
+      <div>
+        <div class="family-field-label">年齢</div>
+        <input type="text" class="finput" id="family-age-${idx}" placeholder="自動計算" readonly
+          style="background:#F5F5F5;cursor:default;">
+      </div>
+      <div>
+        <div class="family-field-label">電話番号</div>
+        <input type="tel" class="finput" id="family-tel-${idx}" placeholder="例：090-0000-0000">
+      </div>
+      <div style="grid-column: 1 / -1;">
+        <div class="family-field-label">年収</div>
+        <input type="text" class="finput" id="family-income-${idx}" placeholder="例：400万円">
+      </div>
+    </div>
+  `;
+  list.appendChild(card);
+}
+
+function removeFamily(idx) {
+  const card = document.getElementById('family-card-' + idx);
+  if (card) card.remove();
+}
+
+function calcAge(idx) {
+  const dob = document.getElementById('family-dob-' + idx).value;
+  if (!dob) return;
+  const today = new Date();
+  const birth = new Date(dob);
+  let age = today.getFullYear() - birth.getFullYear();
+  const m = today.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+  document.getElementById('family-age-' + idx).value = age + '歳';
+}
+
+/* 初期1人を追加 */
+addFamily();
+
+/* ===================================================
+   郵便番号検索
+=================================================== */
+function formatPostal(input) {
+  let v = input.value.replace(/[^\d]/g, '');
+  if (v.length > 3) v = v.slice(0, 3) + '-' + v.slice(3, 7);
+  input.value = v;
+}
+
+async function searchPostal() {
+  const raw = document.getElementById('postal-code').value.replace(/-/g, '');
+  const msg = document.getElementById('postal-msg');
+  const addrField = document.getElementById('address-pref-city');
+
+  if (raw.length !== 7) {
+    msg.textContent = '7桁の郵便番号を入力してください。';
+    msg.className = 'postal-msg err';
+    return;
+  }
+
+  msg.textContent = '検索中…';
+  msg.className = 'postal-msg';
+
+  try {
+    const res = await fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${raw}`);
+    const data = await res.json();
+    if (data.results && data.results.length > 0) {
+      const r = data.results[0];
+      const addr = r.address1 + r.address2 + r.address3;
+      addrField.value = addr;
+      msg.textContent = '✓ 住所が入力されました。';
+      msg.className = 'postal-msg';
+      msg.style.color = 'var(--green)';
+      document.getElementById('address-street').focus();
+    } else {
+      msg.textContent = '住所が見つかりませんでした。郵便番号を確認してください。';
+      msg.className = 'postal-msg err';
+    }
+  } catch {
+    msg.textContent = '通信エラーが発生しました。もう一度お試しください。';
+    msg.className = 'postal-msg err';
+  }
+}
+
+/* ===================================================
+   送信 & CSV生成
+=================================================== */
+function submitForm() {
+  /* バリデーション */
+  const postalRaw = document.getElementById('postal-code').value.replace(/-/g, '');
+  const addrCity  = document.getElementById('address-pref-city').value.trim();
+  const street    = document.getElementById('address-street').value.trim();
+  const triggers  = [...document.querySelectorAll('input[name="trigger"]:checked')].map(c => c.value);
+
+  if (!postalRaw || postalRaw.length < 7) {
+    alert('郵便番号を正しく入力してください。');
+    document.getElementById('postal-code').focus();
+    return;
+  }
+  if (!addrCity) {
+    alert('都道府県・市区町村を入力してください（郵便番号検索ボタンをご利用ください）。');
+    document.getElementById('postal-code').focus();
+    return;
+  }
+  if (!street) {
+    alert('番地を入力してください。');
+    document.getElementById('address-street').focus();
+    return;
+  }
+  if (triggers.length === 0) {
+    alert('知ったきっかけを1つ以上選択してください。');
+    return;
+  }
+
+  /* CSVデータ組み立て */
+  const rows = [];
+
+  /* ヘッダー行 */
+  rows.push([
+    '家族番号', '氏名', '生年月日', '年齢', '電話番号', '年収',
+    '郵便番号', '都道府県・市区町村', '番地', 'マンション名', '号室',
+    '知ったきっかけ'
+  ]);
+
+  /* 家族データ */
+  const cards = document.querySelectorAll('.family-card');
+  const triggerStr = triggers.join('・');
+  const postalDisp = document.getElementById('postal-code').value;
+  const building   = document.getElementById('address-building').value.trim();
+  const room       = document.getElementById('address-room').value.trim();
+
+  if (cards.length === 0) {
+    rows.push([
+      '', '', '', '', '', '',
+      postalDisp, addrCity, street, building, room, triggerStr
+    ]);
+  } else {
+    cards.forEach((card, i) => {
+      const idx = card.id.replace('family-card-', '');
+      const name   = (document.getElementById('family-name-' + idx)   || {}).value || '';
+      const dob    = (document.getElementById('family-dob-' + idx)    || {}).value || '';
+      const age    = (document.getElementById('family-age-' + idx)    || {}).value || '';
+      const tel    = (document.getElementById('family-tel-' + idx)    || {}).value || '';
+      const income = (document.getElementById('family-income-' + idx) || {}).value || '';
+
+      rows.push([
+        i + 1, name, dob, age, tel, income,
+        i === 0 ? postalDisp : '',
+        i === 0 ? addrCity   : '',
+        i === 0 ? street     : '',
+        i === 0 ? building   : '',
+        i === 0 ? room       : '',
+        i === 0 ? triggerStr : ''
+      ]);
+    });
+  }
+
+  /* CSV文字列 */
+  const csvStr = '\uFEFF' + rows.map(row =>
+    row.map(cell => '"' + String(cell).replace(/"/g, '""') + '"').join(',')
+  ).join('\r\n');
+
+  /* ダウンロード */
+  const blob = new Blob([csvStr], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const now  = new Date();
+  const dateStr = now.getFullYear() +
+    String(now.getMonth()+1).padStart(2,'0') +
+    String(now.getDate()).padStart(2,'0') + '_' +
+    String(now.getHours()).padStart(2,'0') +
+    String(now.getMinutes()).padStart(2,'0');
+  a.href = url;
+  a.download = `アンケート_${dateStr}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  /* サンキュー表示 */
+  document.getElementById('thankyou-overlay').classList.add('open');
+}
+
+function closeThankyou() {
+  document.getElementById('thankyou-overlay').classList.remove('open');
+}
+</script>
+
+</body>
+</html>
